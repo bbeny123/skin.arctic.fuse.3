@@ -14,9 +14,11 @@
     <controls>
 
         <control type="group">
+            <include>P3I_Codecs_OSD</include>
+
             <visible>Window.IsActive(VideoFullScreen.xml) | Window.IsActive(MusicVisualisation.xml)</visible>
 
-            <include>OSD_BackgroundFade_Seekbar</include>
+            <include condition="!Skin.HasSetting(p3i.osd.hideBackground)">OSD_BackgroundFade_Seekbar</include>
 
             <control type="group">
                 <visible>!Window.IsVisible(1152)</visible>
@@ -53,6 +55,7 @@
 
                 <include content="Furniture_Header">
                     <param name="include_left">false</param>
+                    <param name="include_right">!Skin.HasSetting(p3i.codecs.osd) | Skin.String(p3i.codecs.osd.align)</param>
                     <param name="textcolor">panel_fg_90</param>
                 </include>
 
