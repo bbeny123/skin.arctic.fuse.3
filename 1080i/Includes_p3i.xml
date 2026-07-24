@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <include name="P3I_Fonts">
+        <definition>
+            <font>
+                <name>font_p3i_ppi_icons</name>
+                <filename>p3i-ppi-icons.ttf</filename>
+                <size>24</size>
+            </font>
+            <font>
+                <name>font_p3i_ppi_mono</name>
+                <filename>p3i-JetBrainsMono-Light.ttf</filename>
+                <size>19</size>
+            </font>
+            <font>
+                <name>font_p3i_ppi_mono_bold</name>
+                <filename>p3i-JetBrainsMono-SemiBold.ttf</filename>
+                <size>19</size>
+            </font>
+        </definition>
+    </include>
+
+    <!-- Includes_DialogInfo & Dialog_Lists -->
+    <variable name="P3I_Item_Aspect_Ratio">
+        <value condition="String.IsEqual(ListItem.VideoAspect,1.78)">16:9</value>
+        <value condition="String.IsEqual(ListItem.VideoAspect,1.33)">4:3</value>
+        <value condition="String.IsEqual(ListItem.VideoAspect,2.33)">21:9</value>
+        <value condition="String.IsEqual(ListItem.VideoAspect,3.56)">32:9</value>
+        <value condition="String.IsEqual(ListItem.VideoAspect,1.89) | String.IsEqual(ListItem.VideoAspect,1.90)">$INFO[ListItem.VideoAspect]:1 [COLOR dialog_fg_70]IMAX[/COLOR]</value>
+        <value>$INFO[ListItem.VideoAspect,,:1]</value>
+    </variable>
+
+    <variable name="P3I_Item_Audio_Codec_Spatial">
+        <value condition="String.Contains(ListItem.AudioCodec,atmos)"> Atmos</value>
+        <value condition="String.Contains(ListItem.AudioCodec,imax)"> IMAX</value>
+    </variable>
+
+    <variable name="P3I_Item_Audio_Codec">
+        <value condition="String.Contains(ListItem.AudioCodec,truehd)">TrueHD</value>
+        <value condition="String.Contains(ListItem.AudioCodec,eac3)">E-AC-3</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,dolbydigital)">AC-3</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,ac3)">AC-3</value>
+
+        <value condition="String.Contains(ListItem.AudioCodec,dtshd_ma_x)">DTS:X</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,dtshd_ma)">DTS-HD MA</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,dtshd)">DTS-HD</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,dts)">DTS</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,dca)">DTS</value>
+
+        <value condition="String.IsEqual(ListItem.AudioCodec,dtshd_hra)">DTS-HD HRA</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,dts_express)">DTS Express</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,dts_96_24)">DTS 96/24</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,dts_es)">DTS-ES</value>
+
+        <value condition="String.IsEqual(ListItem.AudioCodec,pcm_bluray)">LPCM</value>
+        <value condition="String.Contains(ListItem.AudioCodec,pcm)">PCM</value>
+        <value condition="String.Contains(ListItem.AudioCodec,aac)">AAC</value>
+        <value condition="String.Contains(ListItem.AudioCodec,mp3)">MP3</value>
+        <value condition="String.Contains(ListItem.AudioCodec,aif)">AIFF</value>
+
+        <value condition="String.IsEqual(ListItem.AudioCodec,alac)">ALAC</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,ape)">APE</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,cdda)">CDDA</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,flac)">FLAC</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,mp1)">MP1</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,mp2)">MP2</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,ogg)">OGG</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,opus)">OPUS</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,vorbis)">Vorbis</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,wav)">WAV</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,wavpack)">WAVP</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,wmapro)">WMA-PRO</value>
+        <value condition="String.IsEqual(ListItem.AudioCodec,wmav2)">WMA</value>
+
+        <value condition="String.IsEmpty(ListItem.AudioCodec)">$LOCALIZE[13205]</value>
+    </variable>
+
+    <variable name="P3I_Info_Codecs">
+        <value>$VAR[Label_ListItem_VideoQuality]$VAR[P3I_Item_Aspect_Ratio, • ,]$VAR[P3I_Item_Audio_Codec, • ,]$VAR[Label_ListItem_AudioChannels, ,]$VAR[P3I_Item_Audio_Codec_Spatial]</value>
+    </variable>
+
+    <variable name="P3I_Versions_Codecs">
+        <value>$VAR[Label_VideoQuality]$VAR[Label_HDRCodec, • ,]$VAR[P3I_Item_Aspect_Ratio, • ,]$VAR[P3I_Item_Audio_Codec, • ,]$VAR[Label_ListItem_AudioChannels, ,]$VAR[P3I_Item_Audio_Codec_Spatial]</value>
+    </variable>
+
+    <constant name="P3I_Versions_Lang_Height">30</constant>
+
+    <variable name="P3I_Versions_Lang">
+        <value>$VAR[Label_AudioLanguages]$VAR[Label_SubtitleLanguages, • ,]</value>
+    </variable>
+
+    <include name="P3I_Versions_Duration">
+        <control type="group">
+            <left>$PARAM[item_h]</left>
+            <height>80</height>
+            <centertop>50%</centertop>
+            <animation effect="slide" start="0" end="0,20" condition="true">Conditional</animation>
+            <control type="label">
+                <left>-10</left>
+                <include condition="$PARAM[selected]">Color_SelectedText</include>
+                <textcolor>dialog_fg_70</textcolor>
+                <selectedcolor>dialog_fg_70</selectedcolor>
+                <disabledcolor>dialog_fg_30</disabledcolor>
+                <font>font_tiny</font>
+                <label>$LOCALIZE[180]: $INFO[ListItem.Duration]</label>
+                <height>30</height>
+                <bottom>0</bottom>
+            </control>
+        </control>
+    </include>
+
+    <!-- Includes_Info -->
+    <include name="P3I_Info_Line_Pillbox">
+        <control type="button">
+            <visible>$PARAM[visible]</visible>
+            <label fallback="$PARAM[label_fallback]">$PARAM[label]</label>
+            <texturefocus colordiffuse="main_fg_30" border="8">flags/blank-bordered.png</texturefocus>
+            <texturenofocus colordiffuse="main_fg_30" border="8">flags/blank-bordered.png</texturenofocus>
+            <haspath>$PARAM[haspath]</haspath>
+            <width>auto</width>
+            <textoffsetx>10</textoffsetx>
+            <textoffsety>info_tag_offset_y</textoffsety>
+            <aligny>top</aligny>
+            <font>font_infotag_bold</font>
+            <textcolor>main_fg_90</textcolor>
+            <focusedcolor>main_fg_90</focusedcolor>
+            <include>Dimension_Info_Line_Pillbox</include>
+            <shadowcolor>main_bg_12</shadowcolor>
+        </control>
+    </include>
+
+    <include name="P3I_Info_Line_Audio_Codec">
+        <param name="visible">true</param>
+        <definition>
+            <include content="Info_Line_Pill_Text">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">TrueHD Atmos</param>
+                <param name="visible">$PARAM[visible] + String.IsEqual($PARAM[container]$PARAM[listitem].AudioCodec,truehd_atmos)</param>
+                <param name="width">auto</param>
+            </include>
+            <include content="Info_Line_Pill_Text">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">TrueHD</param>
+                <param name="visible">$PARAM[visible] + String.IsEqual($PARAM[container]$PARAM[listitem].AudioCodec,truehd)</param>
+                <param name="width">auto</param>
+            </include>
+            <include content="Info_Line_Pill_Text">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">DD+ Atmos</param>
+                <param name="visible">$PARAM[visible] + String.IsEqual($PARAM[container]$PARAM[listitem].AudioCodec,eac3_ddp_atmos)</param>
+                <param name="width">auto</param>
+            </include>
+            <include content="Info_Line_Pill_Text">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">DD+</param>
+                <param name="visible">$PARAM[visible] + String.IsEqual($PARAM[container]$PARAM[listitem].AudioCodec,eac3)</param>
+                <param name="width">auto</param>
+            </include>
+            <include content="Info_Line_Pill_Text">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">DD</param>
+                <param name="visible">$PARAM[visible] + [String.IsEqual($PARAM[container]$PARAM[listitem].AudioCodec,ac3) | String.IsEqual($PARAM[container]$PARAM[listitem].AudioCodec,dolbydigital)]</param>
+                <param name="width">auto</param>
+            </include>
+            <include content="Info_Line_Pill_Text">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">DTS:X IMAX</param>
+                <param name="visible">$PARAM[visible] + String.IsEqual($PARAM[container]$PARAM[listitem].AudioCodec,dtshd_ma_x_imax)</param>
+                <param name="width">auto</param>
+            </include>
+            <include content="Info_Line_Pill_Text">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">DTS:X</param>
+                <param name="visible">$PARAM[visible] + String.IsEqual($PARAM[container]$PARAM[listitem].AudioCodec,dtshd_ma_x)</param>
+                <param name="width">auto</param>
+            </include>
+            <include content="Info_Line_Pill_Text">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">DTS-HD MA</param>
+                <param name="visible">$PARAM[visible] + String.IsEqual($PARAM[container]$PARAM[listitem].AudioCodec,dtshd_ma)</param>
+                <param name="width">auto</param>
+            </include>
+            <include content="Info_Line_Pill_Text">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">DTS-HD HRA</param>
+                <param name="visible">$PARAM[visible] + String.IsEqual($PARAM[container]$PARAM[listitem].AudioCodec,dtshd_hra)</param>
+                <param name="width">auto</param>
+            </include>
+            <include content="Info_Line_Pill_Text">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">DTS-HD</param>
+                <param name="visible">$PARAM[visible] + String.IsEqual($PARAM[container]$PARAM[listitem].AudioCodec,dtshd)</param>
+                <param name="width">auto</param>
+            </include>
+            <include content="Info_Line_Pill_Text">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">DTS</param>
+                <param name="visible">$PARAM[visible] + [String.IsEqual($PARAM[container]$PARAM[listitem].AudioCodec,dca) | String.IsEqual($PARAM[container]$PARAM[listitem].AudioCodec,dts)]</param>
+                <param name="width">auto</param>
+            </include>
+            <include content="Info_Line_Pill_Text">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">AAC</param>
+                <param name="visible">$PARAM[visible] + String.Contains($PARAM[container]$PARAM[listitem].AudioCodec,aac)</param>
+                <param name="width">auto</param>
+            </include>
+            <include content="Info_Line_Pill_Text">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">PCM</param>
+                <param name="visible">$PARAM[visible] + String.Contains($PARAM[container]$PARAM[listitem].AudioCodec,pcm)</param>
+                <param name="width">auto</param>
+            </include>
+            <include content="Info_Line_Pill_Text">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">FLAC</param>
+                <param name="visible">$PARAM[visible] + String.IsEqual($PARAM[container]$PARAM[listitem].AudioCodec,flac)</param>
+                <param name="width">auto</param>
+            </include>
+            <include content="Info_Line_Pill_Text">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">MP3</param>
+                <param name="visible">$PARAM[visible] + String.Contains($PARAM[container]$PARAM[listitem].AudioCodec,mp3)</param>
+                <param name="width">auto</param>
+            </include>
+            <include content="Info_Line_Pill_Text">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">OGG</param>
+                <param name="visible">$PARAM[visible] + String.IsEqual($PARAM[container]$PARAM[listitem].AudioCodec,ogg)</param>
+                <param name="width">auto</param>
+            </include>
+            <include content="Info_Line_Pill_Text">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">OPUS</param>
+                <param name="visible">$PARAM[visible] + String.IsEqual($PARAM[container]$PARAM[listitem].AudioCodec,opus)</param>
+                <param name="width">auto</param>
+            </include>
+            <include content="Info_Line_Pill_Text">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="label">WAV</param>
+                <param name="visible">$PARAM[visible] + String.IsEqual($PARAM[container]$PARAM[listitem].AudioCodec,wav)</param>
+                <param name="width">auto</param>
+            </include>
+        </definition>
+    </include>
+
+    <include name="P3I_Info_Line_Star_Rating_Pillbox">
+        <control type="group">
+            <visible>$PARAM[visible]</visible>
+            <width>155</width>
+            <include>Dimension_Info_Line_Pillbox</include>
+            <control type="image">
+                <texture colordiffuse="main_fg_30" border="8">flags/blank-bordered.png</texture>
+            </control>
+            <include content="Info_StarRating">
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="rating">$PARAM[rating]</param>
+                <itemgap>-16</itemgap>
+            </include>
+        </control>
+    </include>
+
+    <include name="P3I_Info_Line_Pill_SDR">
+        <include content="Info_Line_Pill_Text">
+            <param name="visible">$PARAM[visible] + String.IsEmpty($PARAM[item].HdrType) + [Integer.IsGreater($PARAM[item].VideoResolution,719) | String.EndsWith($PARAM[item].VideoResolution,K)]</param>
+            <param name="label">SDR</param>
+            <param name="width">auto</param>
+            <param name="colordiffuse">$PARAM[colordiffuse]</param>
+        </include>
+    </include>
+
+    <!-- OSD Button -->
+    <include name="P3I_OSD_VS10_PPI_Button">
+        <control type="button" id="$PARAM[id]">
+            <include>Defs_OSD_Button</include>
+            <onclick>CancelAlarm(osd_timeout,true)</onclick>
+            <onup>ActivateWindow(1159)</onup>
+            <onfocus>ActivateWindow(1159)</onfocus>
+        </control>
+        <include content="OSD_Button_Icon_Overlay">
+            <param name="icon">special://skin/p3i/icons/ppi.png</param>
+            <param name="id">$PARAM[id]</param>
+            <param name="groupid">$PARAM[groupid]</param>
+            <param name="itemgap">osd_itemgap</param>
+        </include>
+    </include>
+
+    <!-- VS10 -->
+    <include name="P3I_VS10_Menu_Height">
+        <height>$PARAM[height]</height>
+    </include>
+
+    <include name="P3I_VS10_Button_Label">
+        <control type="group">
+            <visible>!Control.HasFocus($PARAM[id])</visible>
+            <include content="Object_InfoCircle">
+                <param name="role">$PARAM[mode]</param>
+                <param name="fallback_role">$PARAM[mode]</param>
+                <param name="name">$INFO[Player.Process(video.source.hdr.type),, ]$PARAM[target]</param>
+                <param name="icon">special://skin/extras/icons/$PARAM[icon].png</param>
+                <param name="textcolor_top">dialog_fg_90</param>
+                <param name="textcolor_sub">dialog_fg_70</param>
+            </include>
+        </control>
+
+        <control type="group">
+            <visible>Control.HasFocus($PARAM[id])</visible>
+            <include content="Object_InfoCircle">
+                <param name="role">$PARAM[mode]</param>
+                <param name="fallback_role">$PARAM[mode]</param>
+                <param name="name">$INFO[Player.Process(video.source.hdr.type),, ]$PARAM[target]</param>
+                <param name="icon">special://skin/extras/icons/$PARAM[icon].png</param>
+                <param name="textcolor_top">$VAR[ColorSelected]</param>
+                <param name="textcolor_sub">$VAR[ColorSelected]</param>
+            </include>
+        </control>
+    </include>
+
+    <include name="P3I_VS10_Button_Inactive">
+        <texturenofocus/>
+    </include>
+
+    <include name="P3I_VS10_Button">
+        <control type="button" id="$PARAM[id]">
+            <height>80</height>
+            <onclick>Action($PARAM[action])</onclick>
+            <onclick>Dialog.Close(all)</onclick>
+            <include condition="![$PARAM[active]]">P3I_VS10_Button_Inactive</include>
+        </control>
+
+        <control type="group" id="$PARAM[group_id]">
+            <top>-80</top>
+            <left>-20</left>
+
+            <include condition="$PARAM[active]" content="P3I_VS10_Button_Label">
+                <param name="id">$PARAM[id]</param>
+                <param name="mode">$PARAM[mode]</param>
+                <param name="target">$PARAM[target]</param>
+                <param name="icon">check</param>
+            </include>
+            <include condition="![$PARAM[active]]" content="P3I_VS10_Button_Label">
+                <param name="id">$PARAM[id]</param>
+                <param name="mode">$PARAM[mode]</param>
+                <param name="target">$PARAM[target]</param>
+                <param name="icon">$PARAM[icon]</param>
+            </include>
+        </control>
+    </include>
+
+</includes>
