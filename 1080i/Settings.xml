@@ -197,6 +197,7 @@
                                         <onclick>RunAddon(service.coreelec.settings)</onclick>
                                         <visible>System.AddonIsEnabled(service.coreelec.settings)</visible>
                                     </item>
+                                    <include>P3I_Settings_Entry</include>
                                     <item>
                                         <label>TMDbHelper</label>
                                         <label2>plugin.video.themoviedb.helper</label2>
