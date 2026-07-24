@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <expression name="P3I_Badge_VS10_Visible">[!String.IsEmpty(Player.Process(amlogic.vs10.mode.raw)) + !Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),5) + ![Integer.IsEqual(Player.Process(video.hdr.type.raw),3) + String.StartsWith(Player.Process(amlogic.vs10.mode),Dolby)]]</expression>
+    <expression name="P3I_Badge_Audio_Visible">[String.Contains(VideoPlayer.AudioCodec,truehd) | String.Contains(VideoPlayer.AudioCodec,ac3) | String.Contains(VideoPlayer.AudioCodec,dts) | String.IsEqual(VideoPlayer.AudioCodec,dca) |
+        String.IsEqual(VideoPlayer.AudioCodec,flac) | String.IsEqual(VideoPlayer.AudioCodec,opus) | String.Contains(VideoPlayer.AudioCodec,pcm) | String.Contains(VideoPlayer.AudioCodec,aac) |
+        String.Contains(VideoPlayer.AudioCodec,mp3) | String.IsEqual(VideoPlayer.AudioCodec,mp2) | String.IsEqual(VideoPlayer.AudioCodec,mp1)]</expression>
+
+    <variable name="P3I_Badge_Video">
+        <value condition="String.StartsWith(Player.Process(amlogic.eoft_gamut),DV)">DV</value>
+        <value condition="String.StartsWith(Player.Process(amlogic.eoft_gamut),HDR10 B) | String.StartsWith(Player.Process(amlogic.eoft_gamut),HDR10 P)">HDR10</value>
+        <value condition="String.StartsWith(Player.Process(amlogic.eoft_gamut),HDR10)">HDR10P</value>
+        <value condition="String.StartsWith(Player.Process(amlogic.eoft_gamut),HDR)">HDR10</value>
+        <value condition="String.StartsWith(Player.Process(amlogic.eoft_gamut),HLG)">HLG</value>
+        <value>SDR</value>
+    </variable>
+
+    <variable name="P3I_Badge_Audio">
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,truehd_atmos)">Dolby_TrueHD_Atmos</value>
+        <value condition="String.Contains(VideoPlayer.AudioCodec,truehd)">Dolby_TrueHD</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,eac3_ddp_atmos)">Dolby_Digital_Plus_Atmos</value>
+        <value condition="String.Contains(VideoPlayer.AudioCodec,eac3)">Dolby_Digital_Plus</value>
+        <value condition="String.Contains(VideoPlayer.AudioCodec,dolby)">Dolby_Digital</value>
+        <value condition="String.Contains(VideoPlayer.AudioCodec,ac3)">Dolby_Digital</value>
+
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,dtshd_ma_x_imax)">DTS_X_IMAX</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,dtshd_ma_x)">DTS_X</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,dtshd_ma)">DTS_HD_MA</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,dtshd_hra)">DTS_HD_HRA</value>
+        <value condition="String.Contains(VideoPlayer.AudioCodec,dtshd)">DTS_HD</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,dts_express)">DTS_Express</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,dts_96_24)">DTS_96_24</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,dts_es)">DTS_ES</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,dca)">DTS</value>
+        <value condition="String.Contains(VideoPlayer.AudioCodec,dts)">DTS</value>
+
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,flac)">FLAC</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,opus)">OPUS</value>
+        <value condition="String.Contains(VideoPlayer.AudioCodec,pcm)">PCM</value>
+        <value condition="String.Contains(VideoPlayer.AudioCodec,aac)">AAC</value>
+        <value condition="String.Contains(VideoPlayer.AudioCodec,mp3)">MP3</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,mp2)">MP2</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,mp1)">MP1</value>
+    </variable>
+
+    <!-- Background -->
+    <include name="PPI_Badges_Background_Standard">
+        <control type="image" id="69428">
+            <texture border="20">$VAR[Image_SimpleDialogBackground]</texture>
+        </control>
+        <control type="image" id="69429">
+            <visible>!Skin.String(Background.DialogImage,Onyx)</visible>
+            <texture colordiffuse="dialog_overlay" border="20">common/dialog.png</texture>
+        </control>
+    </include>
+
+    <include name="PPI_Badges_Background_Adaptive">
+        <control type="image" id="69428">
+            <texture colordiffuse="dialog_bg_100" border="20">common/dialog.png</texture>
+        </control>
+        <control type="image" id="69429">
+            <fadetime>background_fadetime</fadetime>
+            <texture colordiffuse="overlay_hard" border="40">$VAR[Image_Current_Background,,-diffuse-20.jpg]</texture>
+        </control>
+    </include>
+
+    <include name="PPI_Badges_Background">
+        <control type="group" id="69425">
+            <animation effect="fade" start="100" end="60" condition="$PARAM[transparency]">Conditional</animation>
+
+            <include condition="$EXP[Exp_DialogTheme_IsAdaptive]">PPI_Badges_Background_Adaptive</include>
+            <include condition="!$EXP[Exp_DialogTheme_IsAdaptive]">PPI_Badges_Background_Standard</include>
+
+            <control type="image" id="69426">
+                <texture colordiffuse="$VAR[Color_DialogBorder]" border="20">common/dialog-outline.png</texture>
+            </control>
+
+            <control type="image" id="69427">
+                <visible>!Skin.String(Background.DialogImage,Onyx)</visible>
+                <texture colordiffuse="dialog_fg_06" border="20">common/dialog.png</texture>
+            </control>
+        </control>
+    </include>
+
+    <!-- Badges -->
+    <include name="P3I_Codec_Badges_Audio">
+        <control type="image" id="69424">
+            <top>110</top>
+            <left>24</left>
+            <right>24</right>
+            <height>2</height>
+            <texture colordiffuse="$VAR[Color_DialogBorder]">common/white.png</texture>
+        </control>
+
+        <control type="image" id="69423">
+            <bottom>0</bottom>
+            <left>24</left>
+            <right>24</right>
+            <height>122</height>
+            <aspectratio align="center">keep</aspectratio>
+            <texture colordiffuse="dialog_fg_90">special://skin/p3i/codecs/audio/$VAR[P3I_Badge_Audio].png</texture>
+        </control>
+    </include>
+
+    <include name="P3I_Codec_Badges">
+        <control type="group" id="69421">
+            <visible>$PARAM[visible]</visible>
+            <height>$PARAM[height]</height>
+            <width>256</width>
+
+            <include condition="$PARAM[background]" content="PPI_Badges_Background">
+                <param name="transparency">$PARAM[transparent]</param>
+            </include>
+
+            <control type="image" id="69422">
+                <top>0</top>
+                <left>24</left>
+                <right>24</right>
+                <height>122</height>
+                <aspectratio align="center">keep</aspectratio>
+                <texture colordiffuse="dialog_fg_90">special://skin/p3i/codecs/video/$VAR[P3I_Badge_Video].png</texture>
+            </control>
+
+            <control type="image" id="69430">
+                <visible>$EXP[P3I_Badge_VS10_Visible]</visible>
+                <top>12</top>
+                <right>12</right>
+                <height>9</height>
+                <width>9</width>
+                <texture colordiffuse="dialog_fg_90">common/circle.png</texture>
+            </control>
+
+            <include condition="$PARAM[has_audio]">P3I_Codec_Badges_Audio</include>
+        </control>
+    </include>
+
+    <!-- Group -->
+    <include name="P3I_Codecs_Top">
+        <top>$PARAM[top]</top>
+    </include>
+
+    <include name="P3I_Codecs_Top_L5">
+        <include condition="String.IsEmpty(Player.Process(video.dovi.l5.top.offset)) | Integer.IsLess(Player.Process(video.dovi.l5.top.offset),31)" content="P3I_Codecs_Top">
+            <param name="top">40</param>
+        </include>
+        <include condition="Integer.IsGreater(Player.Process(video.dovi.l5.top.offset),30) + Integer.IsLess(Player.Process(video.dovi.l5.top.offset),56)" content="P3I_Codecs_Top">
+            <param name="top">61</param>
+        </include>
+        <include condition="Integer.IsGreater(Player.Process(video.dovi.l5.top.offset),55) + Integer.IsLess(Player.Process(video.dovi.l5.top.offset),96)" content="P3I_Codecs_Top">
+            <param name="top">74</param>
+        </include>
+        <include condition="Integer.IsGreater(Player.Process(video.dovi.l5.top.offset),95) + Integer.IsLess(Player.Process(video.dovi.l5.top.offset),161)" content="P3I_Codecs_Top">
+            <param name="top">100</param>
+        </include>
+        <include condition="Integer.IsGreater(Player.Process(video.dovi.l5.top.offset),160) + Integer.IsLess(Player.Process(video.dovi.l5.top.offset),236)" content="P3I_Codecs_Top">
+            <param name="top">140</param>
+        </include>
+        <include condition="Integer.IsGreater(Player.Process(video.dovi.l5.top.offset),235) + Integer.IsLess(Player.Process(video.dovi.l5.top.offset),279)" content="P3I_Codecs_Top">
+            <param name="top">178</param>
+        </include>
+        <include condition="Integer.IsGreater(Player.Process(video.dovi.l5.top.offset),278)" content="P3I_Codecs_Top">
+            <param name="top">180</param>
+        </include>
+    </include>
+
+    <include name="P3I_Codecs_Left">
+        <left>$PARAM[left]</left>
+    </include>
+
+    <include name="P3I_Codecs">
+        <control type="group" id="69420">
+            <visible>$PARAM[visible]</visible>
+            <include condition="$PARAM[animated]">Animation_FadeIn</include>
+            <include condition="$PARAM[animated]">Animation_FadeOut</include>
+
+            <include condition="!Skin.String(p3i.codecs.$PARAM[type].alignV)">P3I_Codecs_Top_L5</include>
+            <include condition="Skin.String(p3i.codecs.$PARAM[type].alignV)" content="P3I_Codecs_Top">
+                <param name="top">40</param>
+            </include>
+
+            <include content="P3I_Codecs_Left" condition="Skin.String(p3i.codecs.$PARAM[type].align,left)">
+                <param name="left">40</param>
+            </include>
+            <include content="P3I_Codecs_Left" condition="Skin.String(p3i.codecs.$PARAM[type].align,center)">
+                <param name="left">832</param>
+            </include>
+            <include content="P3I_Codecs_Left" condition="!Skin.String(p3i.codecs.$PARAM[type].align)">
+                <param name="left">1624</param>
+            </include>
+
+            <include content="P3I_Codec_Badges">
+                <param name="visible">!$EXP[P3I_Badge_Audio_Visible]</param>
+                <param name="height">122</param>
+                <param name="background">!Skin.String(p3i.codecs.$PARAM[type].background,hide)</param>
+                <param name="transparent">!Skin.String(p3i.codecs.$PARAM[type].background,solid)</param>
+                <param name="has_audio">false</param>
+            </include>
+            <include content="P3I_Codec_Badges">
+                <param name="visible">$EXP[P3I_Badge_Audio_Visible]</param>
+                <param name="height">222</param>
+                <param name="background">!Skin.String(p3i.codecs.$PARAM[type].background,hide)</param>
+                <param name="transparent">!Skin.String(p3i.codecs.$PARAM[type].background,solid)</param>
+                <param name="has_audio">true</param>
+            </include>
+        </control>
+    </include>
+
+    <!-- PPI -->
+    <include name="P3I_Codecs_PPI">
+        <include content="P3I_Codecs" condition="Skin.HasSetting(p3i.codecs.ppi)">
+            <param name="type">ppi</param>
+            <param name="visible">true</param>
+            <param name="animated">false</param>
+        </include>
+    </include>
+
+    <!-- OSD -->
+    <include name="P3I_Codecs_OSD">
+        <include content="P3I_Codecs" condition="Skin.HasSetting(p3i.codecs.osd)">
+            <param name="type">osd</param>
+            <param name="visible">!Window.IsVisible(PlayerProcessInfo)</param>
+            <param name="animated">false</param>
+        </include>
+    </include>
+
+    <!-- Launch -->
+    <include name="P3I_Codecs_Video">
+        <include content="P3I_Codecs" condition="!Skin.HasSetting(p3i.codecs.video.disabled)">
+            <param name="type">video</param>
+            <param name="visible">System.HasAlarm(P3I_Codecs_Video_Visible)</param>
+            <param name="animated">true</param>
+        </include>
+    </include>
+
+    <include name="P3I_Codecs_Video_Autohide">
+        <onload>AlarmClock(P3I_Codecs_Video_Visible,noop,00:$VAR[P3I_Settings_Codecs_Video_Timeout],silent)</onload>
+        <onunload>CancelAlarm(P3I_Codecs_Video_Visible,true)</onunload>
+    </include>
+
+</includes>
