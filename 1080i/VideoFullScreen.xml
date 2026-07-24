@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
+    <include condition="!Skin.HasSetting(p3i.codecs.video.disabled)">P3I_Codecs_Video_Autohide</include>
     <onload>ClearProperty(OSDRelaunchFullscreen,Home)</onload>
     <controls>
         <control type="grouplist" id="0">
@@ -26,5 +27,6 @@
                 <font>font_mini</font>
             </include>
         </control>
+        <include>P3I_Codecs_Video</include>
     </controls>
 </window>
