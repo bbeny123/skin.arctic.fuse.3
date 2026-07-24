@@ -1,0 +1,1010 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <!-- Video -->
+    <variable name="P3I_PPI_Display">
+        <value condition="!String.IsEmpty(Window(10000).Property(P3I_PPI_Display))">$INFO[Window(10000).Property(P3I_PPI_Display)]</value>
+        <value>[COLOR dialog_fg_70]$LOCALIZE[31950][/COLOR]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Stream_Scan">
+        <value condition="!String.IsEqual(Player.Process(videoscantype),p)">$INFO[Player.Process(videoscantype)]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Stream">
+        <value condition="Integer.IsGreater(Player.Process(video.width.raw),0) + Integer.IsGreater(Player.Process(video.height.raw),0)">$INFO[Player.Process(video.width.raw)]x$INFO[Player.Process(video.height.raw)]$VAR[P3I_PPI_Stream_Scan]$INFO[Player.Process(VideoFPS), • , FPS]</value>
+        <value condition="Integer.IsGreater(Player.Process(VideoFPS),0)">$INFO[Player.Process(VideoFPS)] FPS</value>
+        <value>[COLOR dialog_fg_70]$LOCALIZE[31950][/COLOR]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Bit_Depth">
+        <value condition="Integer.IsEqual(Player.Process(video.bit.depth),0)"> 8-bit</value>
+        <value> $INFO[Player.Process(video.bit.depth),,-bit]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Ratio">
+        <value condition="String.IsEqual(Player.Process(videodar),1.78)">16:9</value>
+        <value condition="String.IsEqual(Player.Process(videodar),1.33)">4:3</value>
+        <value condition="String.IsEqual(Player.Process(videodar),2.33)">21:9</value>
+        <value condition="String.IsEqual(Player.Process(videodar),3.56)">32:9</value>
+        <value condition="String.IsEqual(Player.Process(videodar),1.89) | String.IsEqual(Player.Process(videodar),1.90)">$INFO[Player.Process(videodar)]:1 [COLOR dialog_fg_70]IMAX[/COLOR]</value>
+        <value>$INFO[Player.Process(videodar),,:1]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Profile">
+        <value condition="String.IsEmpty(VideoPlayer.VideoCodec)">[COLOR dialog_fg_70]$LOCALIZE[31950][/COLOR]</value>
+        <value>[UPPERCASE]$INFO[VideoPlayer.VideoCodec][/UPPERCASE]$VAR[P3I_PPI_Bit_Depth]$VAR[P3I_PPI_Ratio, • ,]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Bitrate">
+        <value condition="!Integer.IsEqual(Player.Process(video.live.kibit.rate),0)">$INFO[Player.Process(video.live.mibit.rate)] Mb/s[COLOR dialog_fg_70]$INFO[VideoPlayer.VideoMibitRate, (Ø , Mb/s)][/COLOR]</value>
+        <value condition="!String.IsEmpty(VideoPlayer.VideoMibitRate)">Ø $INFO[VideoPlayer.VideoMibitRate] Mb/s</value>
+        <value>[COLOR dialog_fg_70]$LOCALIZE[31950][/COLOR]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Primaries_SDR">
+        <value condition="Integer.IsGreater(Player.Process(video.height.raw),719) | String.StartsWith(VideoPlayer.VideoCodec,h26) | String.EndsWith(VideoPlayer.VideoCodec,vc)">BT.709</value>
+        <value condition="String.IsEqual(VideoPlayer.VideoCodec,av1) | String.IsEqual(VideoPlayer.VideoCodec,vp9)">BT.709</value>
+        <value>BT.601</value>
+    </variable>
+
+    <variable name="P3I_PPI_Primaries">
+        <value condition="String.IsEqual(Player.Process(video.source.hdr.type.raw),0)">$VAR[P3I_PPI_Primaries_SDR]</value>
+        <value condition="Integer.IsEqual(Player.Process(video.dovi.profile),5)">IPTPQc2/IPT</value>
+        <value condition="!String.IsEmpty(Player.Process(video.hdr.colour.primaries))">$INFO[Player.Process(video.hdr.colour.primaries)]</value>
+        <value>[COLOR dialog_fg_70]$LOCALIZE[31950][/COLOR]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Decoder_Label">
+        <value condition="String.IsEmpty(Player.Process(deintmethod)) | String.Contains(Player.Process(deintmethod),hardware) | String.Contains(Player.Process(deintmethod),hw)">$LOCALIZE[31965]</value>
+        <value condition="String.Contains(Player.Process(deintmethod),none) | String.Contains(Player.Process(deintmethod),unknown)">$LOCALIZE[31965]</value>
+        <value>$LOCALIZE[31966]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Deinterlacing">
+        <value condition="String.IsEmpty(Player.Process(deintmethod)) | String.Contains(Player.Process(deintmethod),hardware) | String.Contains(Player.Process(deintmethod),hw) | String.Contains(Player.Process(deintmethod),none) | String.Contains(Player.Process(deintmethod),unknown)"/>
+        <value>[UPPERCASE]$INFO[Player.Process(deintmethod)][/UPPERCASE]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Decoder_Type">
+        <value condition="Player.Process(videohwdecoder)">(HW)</value>
+        <value>(SW)</value>
+    </variable>
+
+    <variable name="P3I_PPI_Decoder">
+        <value condition="String.IsEmpty(Player.Process(videodecoder))">[COLOR dialog_fg_70]$LOCALIZE[31950][/COLOR]</value>
+        <value>[UPPERCASE]$INFO[Player.Process(videodecoder)][/UPPERCASE][COLOR dialog_fg_70]$VAR[P3I_PPI_Decoder_Type, ,][/COLOR]$VAR[P3I_PPI_Deinterlacing, • ,]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Progress">
+        <value condition="String.IsEmpty(Player.Duration) | PVR.IsPlayingTV">[COLOR dialog_fg_70]$LOCALIZE[31950][/COLOR]</value>
+        <value>$INFO[Player.Time] / $INFO[Player.Duration][COLOR dialog_fg_70]$INFO[Player.Progress, (,%)][/COLOR]</value>
+    </variable>
+
+    <!-- Processing -->
+    <variable name="P3I_PPI_VS10_Status">
+        <value condition="!String.IsEmpty(Player.Process(amlogic.vs10.mode.raw)) + !Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),5)">[COLOR palegreen][/COLOR]</value>
+        <value>[COLOR tomato][/COLOR]</value>
+    </variable>
+
+    <variable name="P3I_PPI_VS10">
+        <value condition="Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),5)"/>
+        <value condition="!Integer.IsEqual(Player.Process(video.hdr.type.raw),3) + String.StartsWith(Player.Process(amlogic.vs10.mode),Dolby)">DV P8.1</value>
+        <value condition="Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),4)">SDR8</value>
+        <value condition="!String.StartsWith(Player.Process(amlogic.vs10.mode),Dolby)">$INFO[Player.Process(amlogic.vs10.mode)]</value>
+    </variable>
+
+    <variable name="P3I_PPI_DV_Compatibility">
+        <value condition="Integer.IsGreater(Player.Process(video.dovi.bl.signal.compatibility),0)">.$INFO[Player.Process(video.dovi.bl.signal.compatibility)]</value>
+    </variable>
+
+    <variable name="P3I_PPI_DV_Profile">
+        <value condition="Integer.IsGreater(Player.Process(video.dovi.profile),0)"> P$INFO[Player.Process(video.dovi.profile)]$VAR[P3I_PPI_DV_Compatibility]</value>
+    </variable>
+
+    <variable name="P3I_PPI_DV_EL">
+        <value condition="String.IsEqual(Player.Process(video.dovi.el.type),full)"> [COLOR palegreen]FEL[/COLOR]</value>
+        <value condition="String.IsEqual(Player.Process(video.dovi.el.type),minimum)"> [COLOR orange]MEL[/COLOR]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Input">
+        <value condition="String.IsEmpty(Player.Process(video.hdr.type))">[COLOR dialog_fg_70]$LOCALIZE[31950][/COLOR]</value>
+        <value condition="Integer.IsEqual(Player.Process(video.hdr.type.raw),3)">DV$VAR[P3I_PPI_DV_Profile]$VAR[P3I_PPI_DV_EL]$VAR[P3I_PPI_VS10, -> ,]</value>
+        <value>$INFO[Player.Process(video.hdr.type)]$VAR[P3I_PPI_VS10, -> ,]</value>
+    </variable>
+
+    <variable name="P3I_PPI_DV_CM_V">
+        <value condition="!Integer.IsGreater(Player.Process(video.source.dovi.profile),0)">v</value>
+    </variable>
+
+    <variable name="P3I_PPI_DV_CM">
+        <value condition="String.StartsWith(Player.Process(video.dovi.meta.version),CMv4)">[COLOR palegreen]CMv4.0[/COLOR]</value>
+        <value condition="String.StartsWith(Player.Process(video.dovi.meta.version),CMv2)">[COLOR orange]CMv2.9[/COLOR]</value>
+        <value condition="String.StartsWith(Player.Process(video.dovi.meta.version),VCMv4)">CMv2.9 -> [COLOR palegreen]$VAR[P3I_PPI_DV_CM_V]4.0[/COLOR]</value>
+        <value condition="String.StartsWith(Player.Process(video.dovi.meta.version),C29)">CMv4.0 -> [COLOR orange]$VAR[P3I_PPI_DV_CM_V]2.9[/COLOR]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Source_DV_EL">
+        <value condition="String.IsEqual(Player.Process(video.source.dovi.el.type),full)"> [COLOR palegreen]FEL[/COLOR]</value>
+        <value condition="String.IsEqual(Player.Process(video.source.dovi.el.type),minimum)"> [COLOR orange]MEL[/COLOR]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Source_DV">
+        <value condition="!Integer.IsGreater(Player.Process(video.source.dovi.profile),0)">$INFO[Player.Process(video.dovi.dual.track),[COLOR dialog_fg_70](,)[/COLOR]]</value>
+        <value>P$INFO[Player.Process(video.source.dovi.profile)]$VAR[P3I_PPI_Source_DV_EL]$INFO[Player.Process(video.dovi.dual.track), [COLOR dialog_fg_70](,)[/COLOR]]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Source">
+        <value condition="String.IsEmpty(Player.Process(video.source.hdr.type))">[COLOR dialog_fg_70]$LOCALIZE[31950][/COLOR]</value>
+        <value condition="Integer.IsEqual(Player.Process(video.source.hdr.type.raw),3)">DV$VAR[P3I_PPI_Source_DV, ,]$VAR[P3I_PPI_DV_CM, • ,]</value>
+        <value>$INFO[Player.Process(video.source.hdr.type)]</value>
+    </variable>
+
+    <variable name="P3I_PPI_DV_Tunnel">
+        <value condition="Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),1)"> [COLOR dialog_fg_70](DV Tunnel)[/COLOR]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Output_Format_Color">
+        <value condition="String.Contains(Player.Process(amlogic.pixformat),RGB)">RGB$VAR[P3I_PPI_DV_Tunnel]</value>
+        <value condition="String.Contains(Player.Process(amlogic.pixformat),YUV420)">YUV [COLOR dialog_fg_70]4:2:0[/COLOR]</value>
+        <value condition="String.Contains(Player.Process(amlogic.pixformat),YUV422)">YUV [COLOR dialog_fg_70]4:2:2[/COLOR]</value>
+        <value condition="String.Contains(Player.Process(amlogic.pixformat),YUV444)">YUV [COLOR dialog_fg_70]4:4:4[/COLOR]</value>
+        <value>YUV</value>
+    </variable>
+
+    <variable name="P3I_PPI_Output_Format">
+        <value condition="!String.Contains(Player.Process(amlogic.pixformat),RGB) + !String.Contains(Player.Process(amlogic.pixformat),YUV)">$INFO[Player.Process(amlogic.pixformat)]</value>
+        <value condition="String.Contains(Player.Process(amlogic.pixformat),8-bit)">8-bit $VAR[P3I_PPI_Output_Format_Color]</value>
+        <value condition="String.Contains(Player.Process(amlogic.pixformat),10-bit)">10-bit $VAR[P3I_PPI_Output_Format_Color]</value>
+        <value condition="String.Contains(Player.Process(amlogic.pixformat),12-bit)">12-bit $VAR[P3I_PPI_Output_Format_Color]</value>
+        <value condition="String.Contains(Player.Process(amlogic.pixformat),16-bit)">16-bit $VAR[P3I_PPI_Output_Format_Color]</value>
+        <value>$INFO[Player.Process(amlogic.pixformat)]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Output_EOTF">
+        <value condition="String.IsEqual(Window(10000).Property(P3I_PPI_Output_EOTF),DV-Std)">DV [COLOR dialog_fg_70]TV-LED[/COLOR]</value>
+        <value condition="!String.IsEmpty(Window(10000).Property(P3I_PPI_Output_EOTF))">$INFO[Window(10000).Property(P3I_PPI_Output_EOTF)]</value>
+        <value>[COLOR dialog_fg_70]$LOCALIZE[31951][/COLOR]</value>
+    </variable>
+
+    <variable name="P3I_PPI_MDL_Label">
+        <value condition="!Integer.IsEqual(Player.Process(video.dovi.has.config),1)">HDR MDL</value>
+        <value condition="Integer.IsEqual(Player.Process(video.dovi.source.max.nits),0) + Integer.IsEqual(Player.Process(video.hdr.has.mdcv),1) + !Integer.IsEqual(Player.Process(video.hdr.max.lum),0)">HDR MDL</value>
+        <value>RPU MDL</value>
+    </variable>
+
+    <variable name="P3I_PPI_MDL_Min">
+        <value condition="Integer.IsEqual(Player.Process(video.dovi.has.config),1) + !Integer.IsEqual(Player.Process(video.dovi.source.max.nits),0)">$INFO[Player.Process(video.dovi.source.min.nits)] ↓</value>
+        <value condition="Integer.IsEqual(Player.Process(video.hdr.has.mdcv),1) + !Integer.IsEqual(Player.Process(video.hdr.max.lum),0)">$INFO[Player.Process(video.hdr.min.lum)] ↓</value>
+        <value>[COLOR dialog_fg_70]$LOCALIZE[31950] ↓[/COLOR]</value>
+    </variable>
+
+    <variable name="P3I_PPI_MDL_Max">
+        <value condition="Integer.IsEqual(Player.Process(video.dovi.has.config),1) + !Integer.IsEqual(Player.Process(video.dovi.source.max.nits),0)">$INFO[Player.Process(video.dovi.source.max.nits)] ↑</value>
+        <value condition="Integer.IsEqual(Player.Process(video.hdr.has.mdcv),1) + !Integer.IsEqual(Player.Process(video.hdr.max.lum),0)">$INFO[Player.Process(video.hdr.max.lum)] ↑</value>
+        <value>[COLOR dialog_fg_70]$LOCALIZE[31950] ↑[/COLOR]</value>
+    </variable>
+
+    <variable name="P3I_PPI_FALL_CLL_Label">
+        <value condition="!Integer.IsEqual(Player.Process(video.dovi.has.config),1) | !Integer.IsEqual(Player.Process(video.dovi.has.l6),1)">HDR FALL | CLL</value>
+        <value condition="!Integer.IsEqual(Player.Process(video.dovi.l6.max.fall),0) | !Integer.IsEqual(Player.Process(video.dovi.l6.max.cll),0) | !Integer.IsEqual(Player.Process(video.hdr.has.cll),1)">L6 FALL | CLL</value>
+        <value condition="Integer.IsEqual(Player.Process(video.hdr.max.fall),0) + Integer.IsEqual(Player.Process(video.hdr.max.cll),0)">L6 FALL | CLL</value>
+        <value>HDR FALL | CLL</value>
+    </variable>
+
+    <variable name="P3I_PPI_FALL">
+        <value condition="Integer.IsEqual(Player.Process(video.dovi.has.config),1) + Integer.IsEqual(Player.Process(video.dovi.has.l6),1) + !Integer.IsEqual(Player.Process(video.dovi.l6.max.fall),0)">$INFO[Player.Process(video.dovi.l6.max.fall)] Ø</value>
+        <value condition="Integer.IsEqual(Player.Process(video.dovi.has.config),1) + Integer.IsEqual(Player.Process(video.dovi.has.l6),1) + !Integer.IsEqual(Player.Process(video.dovi.l6.max.cll),0)">[COLOR dialog_fg_70]$LOCALIZE[31950] Ø[/COLOR]</value>
+        <value condition="Integer.IsEqual(Player.Process(video.hdr.has.cll),1) + !Integer.IsEqual(Player.Process(video.hdr.max.fall),0)">$INFO[Player.Process(video.hdr.max.fall)] Ø</value>
+        <value>[COLOR dialog_fg_70]$LOCALIZE[31950] Ø[/COLOR]</value>
+    </variable>
+
+    <variable name="P3I_PPI_CLL">
+        <value condition="Integer.IsEqual(Player.Process(video.dovi.has.config),1) + Integer.IsEqual(Player.Process(video.dovi.has.l6),1) + !Integer.IsEqual(Player.Process(video.dovi.l6.max.cll),0)">$INFO[Player.Process(video.dovi.l6.max.cll)] ↑</value>
+        <value condition="Integer.IsEqual(Player.Process(video.dovi.has.config),1) + Integer.IsEqual(Player.Process(video.dovi.has.l6),1) + !Integer.IsEqual(Player.Process(video.dovi.l6.max.fall),0)">[COLOR dialog_fg_70]$LOCALIZE[31950] ↑[/COLOR]</value>
+        <value condition="Integer.IsEqual(Player.Process(video.hdr.has.cll),1) + !Integer.IsEqual(Player.Process(video.hdr.max.cll),0)">$INFO[Player.Process(video.hdr.max.cll)] ↑</value>
+        <value>[COLOR dialog_fg_70]$LOCALIZE[31950] ↑[/COLOR]</value>
+    </variable>
+
+    <variable name="P3I_PPI_L5_Label">
+        <value condition="String.IsEmpty(Player.Process(video.dovi.l5.detect.state)) | Integer.IsEqual(Player.Process(video.dovi.l5.detect.state),5)">L5 [COLOR dialog_fg_70]$LOCALIZE[31954][/COLOR]</value>
+        <value condition="Integer.IsEqual(Player.Process(video.dovi.l5.detect.state),3)">L5 [COLOR dialog_fg_70]$LOCALIZE[31970][/COLOR]</value>
+        <value>L5 [COLOR dialog_fg_70]$LOCALIZE[31971][/COLOR]</value>
+    </variable>
+
+    <variable name="P3I_PPI_L5">
+        <value condition="Integer.IsEqual(Player.Process(video.dovi.has.l5),1) + [String.IsEmpty(Player.Process(video.dovi.l5.detect.state)) | Integer.IsEqual(Player.Process(video.dovi.l5.detect.state),5) | Integer.IsEqual(Player.Process(video.dovi.l5.detect.state),3)]">$INFO[Window(10000).Property(P3I_PPI_L5)]</value>
+
+        <value condition="String.IsEqual(Player.Process(video.dovi.l5.detect.state),0)">$LOCALIZE[31973]</value>
+        <value condition="Integer.IsEqual(Player.Process(video.dovi.l5.detect.state),1)">$LOCALIZE[31974] [COLOR dialog_fg_70]($LOCALIZE[31975])[/COLOR]</value>
+        <value condition="Integer.IsEqual(Player.Process(video.dovi.l5.detect.state),2)">$LOCALIZE[31974] [COLOR dialog_fg_70](IMAX)[/COLOR]</value>
+        <value condition="Integer.IsEqual(Player.Process(video.dovi.l5.detect.state),4)">$LOCALIZE[31974]</value>
+        <value condition="Integer.IsEqual(Player.Process(video.dovi.l5.detect.state),6)">$LOCALIZE[31972]</value>
+
+        <value>[COLOR dialog_fg_70]$LOCALIZE[31950][/COLOR]</value>
+    </variable>
+
+    <variable name="P3I_PPI_L5_Unit">
+        <value condition="!Integer.IsEqual(Player.Process(video.dovi.has.l5),1)"/>
+        <value condition="String.IsEmpty(Player.Process(video.dovi.l5.detect.state)) | Integer.IsEqual(Player.Process(video.dovi.l5.detect.state),5) | Integer.IsEqual(Player.Process(video.dovi.l5.detect.state),3)">[COLOR dialog_fg_70]px[/COLOR]</value>
+    </variable>
+
+    <!-- Audio -->
+    <variable name="P3I_PPI_Audio_Codec">
+        <value condition="String.Contains(VideoPlayer.AudioCodec,truehd)">Dolby TrueHD</value>
+        <value condition="String.Contains(VideoPlayer.AudioCodec,eac3)">Dolby E-AC-3</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,dolbydigital)">Dolby AC-3</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,ac3)">Dolby AC-3</value>
+
+        <value condition="String.Contains(VideoPlayer.AudioCodec,dtshd_ma_x)">DTS:X</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,dtshd_ma)">DTS-HD MA</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,dtshd_hra)">DTS-HD HRA</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,dtshd)">DTS-HD</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,dts_express)">DTS Express</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,dts_96_24)">DTS 96/24</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,dts_es)">DTS-ES</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,dca)">DTS</value>
+        <value condition="String.Contains(VideoPlayer.AudioCodec,dts)">DTS</value>
+
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,pcm_bluray)">LPCM</value>
+        <value condition="String.Contains(VideoPlayer.AudioCodec,pcm)">PCM</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,flac)">FLAC</value>
+        <value condition="String.Contains(VideoPlayer.AudioCodec,mp3)">MP3</value>
+
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,he_aac_v2)">HE-AAC v2</value>
+        <value condition="String.Contains(VideoPlayer.AudioCodec,he_aac)">HE-AAC</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,aac_ssr)">AAC-SSR</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,aac_ltp)">AAC-LTP</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,aac_lc)">AAC-LC</value>
+        <value condition="String.Contains(VideoPlayer.AudioCodec,aac)">AAC</value>
+
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,aifc)">AIFF-C</value>
+        <value condition="String.Contains(VideoPlayer.AudioCodec,aif)">AIFF</value>
+
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,alac)">ALAC</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,ape)">APE</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,cdda)">CD Audio</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,mp1)">MP1</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,mp2)">MP2</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,ogg)">Ogg Vorbis</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,opus)">OPUS</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,vorbis)">Vorbis</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,wav)">WAV</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,wavpack)">WavPack</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,wmapro)">WMA-PRO</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioCodec,wmav2)">WMA</value>
+
+        <value condition="!String.IsEmpty(VideoPlayer.AudioCodec)">[UPPERCASE]$INFO[VideoPlayer.AudioCodec][/UPPERCASE]</value>
+        <value condition="Integer.IsGreater(VideoPlayer.AudioChannels,0) + Integer.IsLess(VideoPlayer.AudioChannels,11)">[COLOR dialog_fg_70]$LOCALIZE[31951][/COLOR]</value>
+        <value>[COLOR dialog_fg_70]$LOCALIZE[31950][/COLOR]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Audio_Channels">
+        <value condition="Integer.IsEqual(VideoPlayer.AudioChannels,8)">7.1</value>
+        <value condition="Integer.IsEqual(VideoPlayer.AudioChannels,6)">5.1</value>
+        <value condition="Integer.IsEqual(VideoPlayer.AudioChannels,2)">2.0</value>
+
+        <value condition="Integer.IsEqual(VideoPlayer.AudioChannels,1)">1.0</value>
+        <value condition="Integer.IsEqual(VideoPlayer.AudioChannels,3)">2.1</value>
+        <value condition="Integer.IsEqual(VideoPlayer.AudioChannels,4)">4.0</value>
+        <value condition="Integer.IsEqual(VideoPlayer.AudioChannels,5)">4.1</value>
+        <value condition="Integer.IsEqual(VideoPlayer.AudioChannels,7)">6.1</value>
+        <value condition="Integer.IsEqual(VideoPlayer.AudioChannels,9)">8.1</value>
+        <value condition="Integer.IsEqual(VideoPlayer.AudioChannels,10)">9.1</value>
+    </variable>
+
+    <variable name="P3I_PPI_Audio_Spatial">
+        <value condition="String.Contains(VideoPlayer.AudioCodec,atmos)">Atmos</value>
+        <value condition="String.Contains(VideoPlayer.AudioCodec,imax)">IMAX</value>
+    </variable>
+
+    <variable name="P3I_PPI_Audio_Resolution">
+        <value condition="Integer.IsGreater(Player.Process(audiobitspersample),0)">$INFO[Player.Process(audiobitspersample)]-bit$INFO[Player.Process(audio.sample.rate), • , kHz]</value>
+        <value condition="Integer.IsGreater(Player.Process(audio.sample.rate),0)">$INFO[Player.Process(audio.sample.rate)] kHz</value>
+        <value>[COLOR dialog_fg_70]$LOCALIZE[31950][/COLOR]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Audio_Bitrate">
+        <value condition="!Integer.IsEqual(Player.Process(audio.live.kibit.rate),0)">$INFO[Player.Process(audio.live.kibit.rate)] kb/s[COLOR dialog_fg_70]$INFO[VideoPlayer.AudioKibitRate, (Ø , kb/s)][/COLOR]</value>
+        <value condition="!String.IsEmpty(VideoPlayer.AudioKibitRate)">Ø $INFO[VideoPlayer.AudioKibitRate] kb/s</value>
+        <value>[COLOR dialog_fg_70]$LOCALIZE[31950][/COLOR]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Audio_Output">
+        <value condition="Player.Passthrough">$LOCALIZE[31982]</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioStreamCount,0)">[COLOR dialog_fg_70]$LOCALIZE[31950][/COLOR]</value>
+        <value>$LOCALIZE[31983]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Audio_Name">
+        <value condition="String.IsEmpty(VideoPlayer.AudioName)">$INFO[VideoPlayer.AudioLanguageEx, | ,]</value>
+        <value condition="String.IsEqual(VideoPlayer.AudioName,$LOCALIZE[21602])">$INFO[VideoPlayer.AudioLanguageEx, | ,] [COLOR dialog_fg_70]($LOCALIZE[31953])[/COLOR]</value>
+        <value> | $INFO[VideoPlayer.AudioName]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Audio_Track">
+        <value condition="String.IsEqual(VideoPlayer.AudioStreamCount,0)">[COLOR dialog_fg_70]$LOCALIZE[31950][/COLOR]</value>
+        <value condition="!String.IsEmpty(VideoPlayer.AudioLanguage)">[UPPERCASE]$INFO[VideoPlayer.AudioLanguage][/UPPERCASE]$VAR[P3I_PPI_Audio_Name]</value>
+        <value>UNK$VAR[P3I_PPI_Audio_Name]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Subtitles_Name">
+        <value condition="String.IsEmpty(VideoPlayer.SubtitlesName)">$INFO[VideoPlayer.SubtitlesLangEx, | ,]</value>
+        <value condition="String.IsEqual(VideoPlayer.SubtitlesName,$LOCALIZE[21602])">$INFO[VideoPlayer.SubtitlesLangEx, | ,] [COLOR dialog_fg_70]($LOCALIZE[31953])[/COLOR]</value>
+        <value> | $INFO[VideoPlayer.SubtitlesName]</value>
+    </variable>
+
+    <variable name="P3I_PPI_Subtitles">
+        <value condition="!VideoPlayer.HasSubtitles">[COLOR dialog_fg_70]$LOCALIZE[31950][/COLOR]</value>
+        <value condition="!VideoPlayer.SubtitlesEnabled">[COLOR dialog_fg_70]$LOCALIZE[31952][/COLOR]</value>
+        <value condition="!String.IsEmpty(VideoPlayer.SubtitlesLanguage)">[UPPERCASE]$INFO[VideoPlayer.SubtitlesLanguage][/UPPERCASE]$VAR[P3I_PPI_Subtitles_Name]</value>
+        <value>UNK$VAR[P3I_PPI_Subtitles_Name]</value>
+    </variable>
+
+    <!-- Fonts -->
+    <include name="P3I_PPI_Font">
+        <font>$PARAM[font]</font>
+    </include>
+
+    <include name="P3I_PPI_Font_Label">
+        <include content="P3I_PPI_Font" condition="!Skin.String(p3i.ppi.font.label)">
+            <param name="font">font_p3i_ppi_mono</param>
+        </include>
+        <include content="P3I_PPI_Font" condition="Skin.String(p3i.ppi.font.label)">
+            <param name="font">font_p3i_ppi_mono_bold</param>
+        </include>
+    </include>
+
+    <include name="P3I_PPI_Font_Value">
+        <include content="P3I_PPI_Font" condition="!Skin.String(p3i.ppi.font.value)">
+            <param name="font">font_p3i_ppi_mono_bold</param>
+        </include>
+        <include content="P3I_PPI_Font" condition="Skin.String(p3i.ppi.font.value)">
+            <param name="font">font_p3i_ppi_mono</param>
+        </include>
+    </include>
+
+    <!-- Blocks -->
+    <include name="P3I_PPI_Header">
+        <control type="label">
+            <label>$PARAM[icon]</label>
+            <top>-26</top>
+            <font>font_p3i_ppi_icons</font>
+            <textcolor>dialog_fg_100</textcolor>
+        </control>
+        <control type="label">
+            <label>[B][UPPERCASE]$PARAM[label][/UPPERCASE][/B]</label>
+            <top>-26</top>
+            <left>31</left>
+            <font>font_p3i_ppi_mono_bold</font>
+            <textcolor>dialog_fg_100</textcolor>
+        </control>
+    </include>
+
+    <include name="P3I_PPI_Key">
+        <control type="label">
+            <top>$PARAM[top]</top>
+            <left>$PARAM[left]</left>
+            <label>$PARAM[label]</label>
+            <include>P3I_PPI_Font_Label</include>
+            <textcolor>dialog_fg_90</textcolor>
+        </control>
+    </include>
+
+    <include name="P3I_PPI_Value">
+        <control type="label">
+            <top>$PARAM[top]</top>
+            <left>$PARAM[left]</left>
+            <width>$PARAM[width]</width>
+            <align>$PARAM[align]</align>
+            <label>$PARAM[label]</label>
+            <scroll>true</scroll>
+            <include>P3I_PPI_Font_Value</include>
+            <textcolor>dialog_fg_90</textcolor>
+        </control>
+    </include>
+
+    <include name="P3I_PPI_Key_Value">
+        <include content="P3I_PPI_Key">
+            <param name="top">$PARAM[top]</param>
+            <param name="label">$PARAM[label]</param>
+        </include>
+        <include content="P3I_PPI_Value">
+            <param name="top">$PARAM[top]</param>
+            <param name="left">$PARAM[left]</param>
+            <param name="width">$PARAM[width]</param>
+            <param name="label">$PARAM[value]</param>
+        </include>
+    </include>
+
+    <include name="P3I_PPI_Nits">
+        <include content="P3I_PPI_Key">
+            <param name="top">$PARAM[top]</param>
+            <param name="label">$PARAM[label]</param>
+        </include>
+        <control type="group">
+            <top>$PARAM[top]</top>
+            <left>$PARAM[left]</left>
+            <width>319</width>
+            <include content="P3I_PPI_Value" condition="$PARAM[has_min]">
+                <param name="width">88</param>
+                <param name="align">right</param>
+                <param name="label">$PARAM[min]</param>
+            </include>
+            <include content="P3I_PPI_Value" condition="$PARAM[has_avg]">
+                <param name="left">99</param>
+                <param name="width">88</param>
+                <param name="align">right</param>
+                <param name="label">$PARAM[avg]</param>
+            </include>
+            <include content="P3I_PPI_Value">
+                <param name="left">198</param>
+                <param name="width">88</param>
+                <param name="align">right</param>
+                <param name="label">$PARAM[max]</param>
+            </include>
+            <!-- nits -->
+            <include content="P3I_PPI_Value">
+                <param name="left">0r</param>
+                <param name="align">right</param>
+                <param name="label">[COLOR dialog_fg_70]nits[/COLOR]</param>
+            </include>
+        </control>
+    </include>
+
+    <include name="P3I_PPI_Bar">
+        <control type="group">
+            <left>$PARAM[left]</left>
+            <include condition="!String.IsEmpty($PARAM[info])" content="P3I_PPI_Value">
+                <param name="align">right</param>
+                <param name="width">55</param>
+                <param name="label">$INFO[$PARAM[info],,$PARAM[unit] ]</param>
+            </include>
+            <include condition="String.IsEmpty($PARAM[info])" content="P3I_PPI_Value">
+                <param name="align">right</param>
+                <param name="width">55</param>
+                <param name="label">[COLOR dialog_fg_70]$LOCALIZE[31950][/COLOR] </param>
+            </include>
+            <control type="progress">
+                <top>-6</top>
+                <left>54</left>
+                <width>$PARAM[width]</width>
+                <info>$PARAM[info]</info>
+                <texturebg colordiffuse="panel_fg_12" border="6">progress/progress-bg.png</texturebg>
+                <midtexture colordiffuse="dialog_fg_90" border="6">progress/progress-bg.png</midtexture>
+            </control>
+        </control>
+    </include>
+
+    <include name="P3I_PPI_Bars">
+        <include content="P3I_PPI_Key">
+            <param name="top">$PARAM[top]</param>
+            <param name="label">$PARAM[label]</param>
+        </include>
+        <control type="group">
+            <top>$PARAM[top]</top>
+            <left>$PARAM[left]</left>
+            <include condition="!$PARAM[has_data]" content="P3I_PPI_Bar">
+                <param name="width">308</param>
+                <param name="info">$PARAM[info]</param>
+                <param name="unit">$PARAM[unit]</param>
+            </include>
+            <include condition="$PARAM[has_data]" content="P3I_PPI_Bar">
+                <param name="width">122</param>
+                <param name="info">$PARAM[info]</param>
+                <param name="unit">$PARAM[unit]</param>
+            </include>
+            <include condition="$PARAM[has_data]" content="P3I_PPI_Bar">
+                <param name="left">186</param>
+                <param name="width">122</param>
+                <param name="info">$PARAM[info2]</param>
+                <param name="unit">$PARAM[unit]</param>
+            </include>
+        </control>
+    </include>
+
+    <!-- Video -->
+    <include name="P3I_PPI_Group_Video">
+        <include content="P3I_PPI_Header">
+            <param name="icon"></param>
+            <param name="label">$LOCALIZE[31945]</param>
+        </include>
+
+        <!-- Display -->
+        <include content="P3I_PPI_Key_Value">
+            <param name="top">20</param>
+            <param name="left">$PARAM[value_left]</param>
+            <param name="width">$PARAM[value_width]</param>
+            <param name="label">$LOCALIZE[31960]</param>
+            <param name="value">$VAR[P3I_PPI_Display]</param>
+            <!--<param name="value">3840×2160 • 23.976 Hz</param>-->
+        </include>
+
+        <!-- Stream -->
+        <include content="P3I_PPI_Key_Value">
+            <param name="top">50</param>
+            <param name="left">$PARAM[value_left]</param>
+            <param name="width">$PARAM[value_width]</param>
+            <param name="label">$LOCALIZE[31961]</param>
+            <param name="value">$VAR[P3I_PPI_Stream]</param>
+            <!--<param name="value">3840×2160 • 23.976 FPS</param>-->
+        </include>
+
+        <!-- Profile -->
+        <include content="P3I_PPI_Key_Value">
+            <param name="top">80</param>
+            <param name="left">$PARAM[value_left]</param>
+            <param name="width">$PARAM[value_width]</param>
+            <param name="label">$LOCALIZE[31962]</param>
+            <param name="value">$VAR[P3I_PPI_Profile]</param>
+        </include>
+
+        <!-- Bitrate -->
+        <include content="P3I_PPI_Key_Value">
+            <param name="top">110</param>
+            <param name="left">$PARAM[value_left]</param>
+            <param name="width">$PARAM[value_width]</param>
+            <param name="label">$LOCALIZE[31956]</param>
+            <param name="value">$VAR[P3I_PPI_Bitrate]</param>
+            <!--<param name="value">15.25 Mb/s [COLOR dialog_fg_70](Ø 57.85 Mb/s)[/COLOR]</param>-->
+        </include>
+
+        <!-- Primaries -->
+        <include content="P3I_PPI_Key_Value">
+            <param name="top">140</param>
+            <param name="left">$PARAM[value_left]</param>
+            <param name="width">$PARAM[value_width]</param>
+            <param name="label">$LOCALIZE[31963]</param>
+            <param name="value">$VAR[P3I_PPI_Primaries]</param>
+            <!--<param name="value">Display P3</param>-->
+        </include>
+
+        <!-- Decoder & Deinterlacing -->
+        <include content="P3I_PPI_Key_Value">
+            <param name="top">170</param>
+            <param name="left">$PARAM[value_left]</param>
+            <param name="width">$PARAM[value_width]</param>
+            <param name="label">$VAR[P3I_PPI_Decoder_Label]</param>
+            <param name="value">$VAR[P3I_PPI_Decoder]</param>
+            <!--<param name="value">AM-H265 [COLOR dialog_fg_70](HW)[/COLOR] • YADIF</param>-->
+        </include>
+
+        <!-- Progress -->
+        <include content="P3I_PPI_Key_Value">
+            <param name="top">200</param>
+            <param name="left">$PARAM[value_left]</param>
+            <param name="width">$PARAM[value_width]</param>
+            <param name="label">$LOCALIZE[31964]</param>
+            <param name="value">$VAR[P3I_PPI_Progress]</param>
+        </include>
+    </include>
+
+    <!-- Processing -->
+    <include name="P3I_PPI_Group_Processing">
+        <!-- Dolby Vision Icon -->
+        <control type="image">
+            <visible>Integer.IsEqual(Player.Process(video.dovi.has.config),1)</visible>
+            <top>-22</top>
+            <left>2</left>
+            <height>22</height>
+            <aspectratio align="left">keep</aspectratio>
+            <texture colordiffuse="dialog_fg_100">special://skin/p3i/icons/dv.png</texture>
+        </control>
+
+        <!-- Header -->
+        <control type="group">
+            <visible>!Integer.IsEqual(Player.Process(video.dovi.has.config),1)</visible>
+            <include content="P3I_PPI_Header">
+                <param name="icon"></param>
+                <param name="label">$LOCALIZE[31946]</param>
+            </include>
+        </control>
+
+        <!-- VS10 -->
+        <include content="P3I_PPI_Key_Value">
+            <param name="top">20</param>
+            <param name="left">$PARAM[value_left]</param>
+            <param name="width">$PARAM[value_width]</param>
+            <param name="label">VS10</param>
+            <param name="value">$VAR[P3I_PPI_Input]</param>
+            <!--<param name="value">DV P7.6 [COLOR orange]MEL[/COLOR] -> HDR10</param>-->
+        </include>
+        <control type="label">
+            <top>21</top>
+            <left>51</left>
+            <label>$VAR[P3I_PPI_VS10_Status]</label>
+            <font>font_p3i_ppi_icons</font>
+        </control>
+
+        <!-- VP -->
+        <control type="group">
+            <visible>Integer.IsEqual(Player.Process(video.vpmode),1)</visible>
+            <include content="P3I_PPI_Key">
+                <param name="top">20</param>
+                <param name="left">74</param>
+                <param name="label"> | VP</param>
+            </include>
+            <control type="label">
+                <top>21</top>
+                <left>125</left>
+                <label>[COLOR palegreen][/COLOR]</label>
+                <font>font_p3i_ppi_icons</font>
+            </control>
+        </control>
+
+        <!-- Source -->
+        <include content="P3I_PPI_Key_Value">
+            <param name="top">50</param>
+            <param name="left">$PARAM[value_left]</param>
+            <param name="width">$PARAM[value_width]</param>
+            <param name="label">$LOCALIZE[31954]</param>
+            <param name="value">$VAR[P3I_PPI_Source]</param>
+            <!--<param name="value">DV P7 [COLOR palegreen]FEL[/COLOR] [COLOR dialog_fg_70](ST-DL)[/COLOR] • CMv2.9 -> [COLOR palegreen]4.0[/COLOR]</param>-->
+        </include>
+
+        <!-- Output -->
+        <include content="P3I_PPI_Key_Value">
+            <param name="top">80</param>
+            <param name="left">$PARAM[value_left]</param>
+            <param name="width">$PARAM[value_width]</param>
+            <param name="label">$LOCALIZE[31955]</param>
+            <param name="value">$VAR[P3I_PPI_Output_EOTF]$VAR[P3I_PPI_Output_Format, • ,]</param>
+            <!--<param name="value">HDR10+ BT.2020 • 12-bit YUV [COLOR dialog_fg_70]4:2:0[/COLOR]</param>-->
+            <!--<param name="value">DV [COLOR dialog_fg_70]TV-LED[/COLOR] • 8-bit RGB [COLOR dialog_fg_70](DV Tunnel)[/COLOR]</param>-->
+        </include>
+
+        <control type="group">
+            <visible>String.Contains(Player.Process(video.hdr.type),hdr) | Integer.IsEqual(Player.Process(video.dovi.has.config),1)</visible>
+
+            <!-- RPU / HDR MDL -->
+            <include content="P3I_PPI_Nits">
+                <param name="top">120</param>
+                <param name="left">$PARAM[value_left]</param>
+                <param name="label">$VAR[P3I_PPI_MDL_Label]</param>
+                <param name="min">$VAR[P3I_PPI_MDL_Min]</param>
+                <param name="max">$VAR[P3I_PPI_MDL_Max]</param>
+                <!--<param name="min">0.0001 ↓</param>-->
+                <!--<param name="max">1000 ↑</param>-->
+                <param name="has_min">true</param>
+            </include>
+
+            <!-- L6 / HDR FALL • CLL -->
+            <include content="P3I_PPI_Nits">
+                <param name="top">140</param>
+                <param name="left">$PARAM[value_left]</param>
+                <param name="label">$VAR[P3I_PPI_FALL_CLL_Label]</param>
+                <param name="avg">$VAR[P3I_PPI_FALL]</param>
+                <param name="max">$VAR[P3I_PPI_CLL]</param>
+                <!--<param name="avg">68 Ø</param>-->
+                <!--<param name="max">1258 ↑</param>-->
+                <param name="has_avg">true</param>
+            </include>
+        </control>
+
+        <control type="group">
+            <visible>Integer.IsEqual(Player.Process(video.dovi.has.config),1)</visible>
+
+            <!-- L1 CLL -->
+            <include content="P3I_PPI_Nits">
+                <param name="top">160</param>
+                <param name="left">$PARAM[value_left]</param>
+                <param name="label">L1 CLL</param>
+                <param name="min">$INFO[Player.Process(video.dovi.l1.min.nits)] ↓</param>
+                <param name="avg">$INFO[Player.Process(video.dovi.l1.avg.nits)] Ø</param>
+                <param name="max">$INFO[Player.Process(video.dovi.l1.max.nits)] ↑</param>
+                <!--<param name="min">0.0003 ↓</param>-->
+                <!--<param name="avg">10 Ø</param>-->
+                <!--<param name="max">100 ↑</param>-->
+                <param name="has_min">true</param>
+                <param name="has_avg">true</param>
+            </include>
+
+            <!-- L5 -->
+            <include content="P3I_PPI_Key_Value">
+                <param name="top">200</param>
+                <param name="left">$PARAM[value_left]</param>
+                <param name="width">335</param>
+                <param name="label">$VAR[P3I_PPI_L5_Label]</param>
+                <param name="value">$VAR[P3I_PPI_L5]</param>
+                <!--<param name="value">↑ 241 | 242 ↓      ← 0 | 0 →</param>-->
+            </include>
+            <!-- px -->
+            <include content="P3I_PPI_Value">
+                <param name="top">200</param>
+                <param name="left">0r</param>
+                <param name="width">50</param>
+                <param name="align">right</param>
+                <param name="label">$VAR[P3I_PPI_L5_Unit]</param>
+                <!--<param name="label">[COLOR dialog_fg_70]px[/COLOR]</param>-->
+            </include>
+        </control>
+    </include>
+
+    <!-- Audio -->
+    <include name="P3I_PPI_Group_Audio">
+        <include content="P3I_PPI_Header">
+            <param name="icon"></param>
+            <param name="label">$LOCALIZE[31947]</param>
+        </include>
+
+        <!-- Codec -->
+        <include content="P3I_PPI_Key_Value">
+            <param name="top">20</param>
+            <param name="left">$PARAM[value_left]</param>
+            <param name="width">$PARAM[value_width]</param>
+            <param name="label">$LOCALIZE[31980]</param>
+            <param name="value">$VAR[P3I_PPI_Audio_Codec]$VAR[P3I_PPI_Audio_Channels, ,][COLOR dialog_fg_70]$VAR[P3I_PPI_Audio_Spatial, ,][/COLOR]</param>
+            <!--<param name="value">Dolby TrueHD 7.1 [COLOR dialog_fg_70]Atmos[/COLOR]</param>-->
+        </include>
+
+        <!-- Resolution -->
+        <include content="P3I_PPI_Key_Value">
+            <param name="top">50</param>
+            <param name="left">$PARAM[value_left]</param>
+            <param name="width">$PARAM[value_width]</param>
+            <param name="label">$LOCALIZE[31981]</param>
+            <param name="value">$VAR[P3I_PPI_Audio_Resolution]</param>
+            <!--<param name="value">24-bit • 48 kHz</param>-->
+        </include>
+
+        <!-- Bitrate -->
+        <include content="P3I_PPI_Key_Value">
+            <param name="top">80</param>
+            <param name="left">$PARAM[value_left]</param>
+            <param name="width">$PARAM[value_width]</param>
+            <param name="label">$LOCALIZE[31956]</param>
+            <param name="value">$VAR[P3I_PPI_Audio_Bitrate]</param>
+            <!--<param name="value">1,537 Kb/s [COLOR dialog_fg_70](Ø 2,951 Kb/s)[/COLOR]</param>-->
+        </include>
+
+        <!-- Output -->
+        <include content="P3I_PPI_Key_Value">
+            <param name="top">110</param>
+            <param name="left">$PARAM[value_left]</param>
+            <param name="width">$PARAM[value_width]</param>
+            <param name="label">$LOCALIZE[31955]</param>
+            <param name="value">$VAR[P3I_PPI_Audio_Output]</param>
+        </include>
+
+        <!-- Track -->
+        <include content="P3I_PPI_Key_Value">
+            <param name="top">140</param>
+            <param name="left">$PARAM[value_left]</param>
+            <param name="width">$PARAM[value_width]</param>
+            <param name="label">$LOCALIZE[31984]</param>
+            <param name="value">$VAR[P3I_PPI_Audio_Track]</param>
+            <!--<param name="value">ENG | English</param>-->
+        </include>
+
+        <!-- Subtitles -->
+        <include content="P3I_PPI_Key_Value">
+            <param name="top">170</param>
+            <param name="left">$PARAM[value_left]</param>
+            <param name="width">$PARAM[value_width]</param>
+            <param name="label">$LOCALIZE[31985]</param>
+            <param name="value">$VAR[P3I_PPI_Subtitles]</param>
+            <!--<param name="value">POL | Polish [COLOR dialog_fg_70](External)[/COLOR]</param>-->
+        </include>
+    </include>
+
+    <!-- System -->
+    <include name="P3I_PPI_Group_System">
+        <include content="P3I_PPI_Header">
+            <param name="icon"></param>
+            <param name="label">$LOCALIZE[31948]</param>
+        </include>
+
+        <!-- AML FPS -->
+        <include content="P3I_PPI_Key_Value">
+            <param name="top">20</param>
+            <param name="left">$PARAM[value_left]</param>
+            <param name="width">324</param>
+            <param name="label">$LOCALIZE[31990]</param>
+            <param name="value">$INFO[Window(10000).Property(P3I_PPI_FPS)][COLOR dialog_fg_70]$INFO[Window(10000).Property(P3I_PPI_FPS_Low), (↓ ,)][/COLOR]</param>
+            <!--<param name="value">23 - 2 -> 21 [COLOR dialog_fg_70](↓ 21)[/COLOR]</param>-->
+        </include>
+        <!-- FPS -->
+        <include content="P3I_PPI_Value">
+            <param name="top">20</param>
+            <param name="left">0r</param>
+            <param name="width">50</param>
+            <param name="align">right</param>
+            <param name="label">[COLOR dialog_fg_70]FPS[/COLOR]</param>
+        </include>
+
+        <!-- CPU -->
+        <include content="P3I_PPI_Key_Value">
+            <param name="top">50</param>
+            <param name="left">$PARAM[value_left]</param>
+            <param name="width">346</param>
+            <param name="label">$LOCALIZE[31991]</param>
+            <param name="value">$INFO[System.CPUTemperature]$INFO[System.CpuAltUsage, | ,]</param>
+            <!--<param name="value">75°C • 65 | 44 | 06 | 00 | 09 | 04</param>-->
+        </include>
+        <!-- % -->
+        <include content="P3I_PPI_Value">
+            <param name="top">50</param>
+            <param name="left">1r</param>
+            <param name="width">50</param>
+            <param name="align">right</param>
+            <param name="label">[COLOR dialog_fg_70]%[/COLOR]</param>
+        </include>
+
+        <!-- RAM -->
+        <include content="P3I_PPI_Bars">
+            <param name="top">80</param>
+            <param name="left">$PARAM[value_left]</param>
+            <param name="label">$LOCALIZE[31992]</param>
+            <param name="info">system.memory(used.percent)</param>
+            <param name="has_data">false</param>
+        </include>
+
+        <!-- Player cache -->
+        <include content="P3I_PPI_Bars">
+            <param name="top">110</param>
+            <param name="left">$PARAM[value_left]</param>
+            <param name="label">$LOCALIZE[31993]</param>
+            <param name="info">Player.CacheLevel</param>
+            <param name="unit">%</param>
+            <param name="has_data">false</param>
+        </include>
+
+        <!-- Video Q • Data -->
+        <include content="P3I_PPI_Bars">
+            <param name="top">140</param>
+            <param name="left">$PARAM[value_left]</param>
+            <param name="label">$LOCALIZE[31994]</param>
+            <param name="info">Player.Process(video.queue.level)</param>
+            <param name="info2">Player.Process(video.queue.data.level)</param>
+            <param name="unit">%</param>
+            <param name="has_data">true</param>
+        </include>
+
+        <!-- Audio Q • Data -->
+        <include content="P3I_PPI_Bars">
+            <param name="top">170</param>
+            <param name="left">$PARAM[value_left]</param>
+            <param name="label">$LOCALIZE[31995]</param>
+            <param name="info">Player.Process(audio.queue.level)</param>
+            <param name="info2">Player.Process(audio.queue.data.level)</param>
+            <param name="unit">%</param>
+            <param name="has_data">true</param>
+        </include>
+    </include>
+
+    <!-- Position & Background -->
+    <include name="P3I_PPI_Top">
+        <top>$PARAM[top]</top>
+    </include>
+
+    <include name="P3I_PPI_Left">
+        <left>$PARAM[left]</left>
+    </include>
+
+    <include name="P3I_PPI_Position">
+        <!-- Position: Vertical -->
+        <include content="P3I_PPI_Top" condition="!Skin.String(p3i.ppi.alignV) + !Skin.HasSetting(p3i.ppi.compact)">
+            <param name="top">492</param>
+        </include>
+        <include content="P3I_PPI_Top" condition="!Skin.String(p3i.ppi.alignV) + Skin.HasSetting(p3i.ppi.compact)">
+            <param name="top">532</param>
+        </include>
+        <include content="P3I_PPI_Top" condition="Skin.String(p3i.ppi.alignV,center)">
+            <param name="top">267</param>
+        </include>
+        <include content="P3I_PPI_Top" condition="Skin.String(p3i.ppi.alignV,top) + !Skin.HasSetting(p3i.ppi.compact)">
+            <param name="top">42</param>
+        </include>
+        <include content="P3I_PPI_Top" condition="Skin.String(p3i.ppi.alignV,top) + Skin.HasSetting(p3i.ppi.compact)">
+            <param name="top">2</param>
+        </include>
+
+        <!-- Position: Horizontal -->
+        <include content="P3I_PPI_Left" condition="Skin.String(p3i.ppi.align,left) + Skin.HasSetting(p3i.ppi.compact)">
+            <param name="left">-40</param>
+        </include>
+        <include content="P3I_PPI_Left" condition="Skin.String(p3i.ppi.align,center)">
+            <param name="left">358</param>
+        </include>
+        <include content="P3I_PPI_Left" condition="!Skin.String(p3i.ppi.align) + !Skin.HasSetting(p3i.ppi.compact)">
+            <param name="left">715</param>
+        </include>
+        <include content="P3I_PPI_Left" condition="!Skin.String(p3i.ppi.align) + Skin.HasSetting(p3i.ppi.compact)">
+            <param name="left">755</param>
+        </include>
+    </include>
+
+    <include name="P3I_PPI_Background">
+        <control type="group">
+            <top>$PARAM[top]</top>
+            <left>$PARAM[left]</left>
+            <width>$PARAM[width]</width>
+            <height>$PARAM[height]</height>
+            <include content="Part_Background_Panel">
+                <param name="transparency">!Skin.String(p3i.ppi.background)</param>
+            </include>
+        </control>
+    </include>
+
+    <!-- PPI -->
+    <include name="P3I_PPI">
+        <control type="group">
+            <include>Animation_BounceIn_Dialog</include>
+
+            <!-- Codec Badges -->
+            <include>P3I_Codecs_PPI</include>
+
+            <control type="group">
+                <height>0</height>
+                <include>P3I_PPI_Position</include>
+
+                <!-- Background -->
+                <include condition="!Skin.String(p3i.ppi.background,hide) + !Skin.HasSetting(p3i.ppi.compact)" content="P3I_PPI_Background">
+                    <param name="top">-42</param>
+                    <param name="width">1205</param>
+                    <param name="height">630</param>
+                </include>
+                <include condition="!Skin.String(p3i.ppi.background,hide) + Skin.HasSetting(p3i.ppi.compact)" content="P3I_PPI_Background">
+                    <param name="top">-22</param>
+                    <param name="left">20</param>
+                    <param name="width">1165</param>
+                    <param name="height">590</param>
+                </include>
+
+                <!-- Video -->
+                <control type="group">
+                    <top>60</top>
+                    <left>80</left>
+                    <width>435</width>
+
+                    <include content="P3I_PPI_Group_Video">
+                        <param name="value_left">155</param>
+                        <param name="value_width">310</param>
+                    </include>
+                </control>
+
+                <!-- Processing -->
+                <control type="group">
+                    <top>60</top>
+                    <left>575</left>
+                    <width>500</width>
+
+                    <include content="P3I_PPI_Group_Processing">
+                        <param name="value_left">187</param>
+                        <param name="value_width">363</param>
+                    </include>
+                </control>
+
+                <!-- Audio -->
+                <control type="group">
+                    <top>330</top>
+                    <left>80</left>
+                    <width>435</width>
+
+                    <include content="P3I_PPI_Group_Audio">
+                        <param name="value_left">155</param>
+                        <param name="value_width">310</param>
+                    </include>
+                </control>
+
+                <!-- System -->
+                <control type="group">
+                    <top>330</top>
+                    <left>575</left>
+                    <width>500</width>
+
+                    <include content="P3I_PPI_Group_System">
+                        <param name="value_left">187</param>
+                    </include>
+                </control>
+            </control>
+        </control>
+    </include>
+
+    <include name="P3I_PPI_On_Load">
+        <onload>SetProperty(P3I_PPI_Active,true,home)</onload>
+        <onload>RunScript(special://skin/p3i/ppi.py)</onload>
+        <onunload>ClearProperty(P3I_PPI_Active,home)</onunload>
+    </include>
+
+</includes>

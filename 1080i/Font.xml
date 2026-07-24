@@ -3,6 +3,7 @@
 
     <fontset id="Default" unicode="false">
         <include>Font_Default</include>
+        <include>P3I_Fonts</include>
     </fontset>
 
     <fontset id="Default (Unicode)" unicode="true">
