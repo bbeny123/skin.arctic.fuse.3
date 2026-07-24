@@ -77,6 +77,11 @@
     <include file="Includes_Paths.xml" />
     <include file="Includes_SeasonalThemes.xml" />
 
+    <include file="Includes_p3i.xml"/>
+    <include file="Includes_p3i_Settings.xml"/>
+    <include file="Includes_p3i_Codecs.xml"/>
+    <include file="Includes_p3i_PPI.xml"/>
+
     <include file="Includes_Views.xml" />
     <include file="Includes_Views_List.xml" />
     <include file="Includes_Views_Row.xml" />
