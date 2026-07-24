@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<includes>
+
+    <expression name="P3I_Settings_Visible">[String.IsEqual(Window(Home).Property(CustomDialogSettingsItems),P3I_Settings_Dialog)]</expression>
+
+    <variable name="P3I_Settings_PPI_Align">
+        <value condition="Skin.String(p3i.ppi.align,left)">$LOCALIZE[31920]</value>
+        <value condition="Skin.String(p3i.ppi.align,center)">$LOCALIZE[31921]</value>
+        <value>$LOCALIZE[31922]</value>
+    </variable>
+
+    <variable name="P3I_Settings_PPI_Align_Vertical">
+        <value condition="Skin.String(p3i.ppi.alignV,center)">$LOCALIZE[31921]</value>
+        <value condition="Skin.String(p3i.ppi.alignV,top)">$LOCALIZE[31923]</value>
+        <value>$LOCALIZE[31924]</value>
+    </variable>
+
+    <variable name="P3I_Settings_PPI_Font_Label">
+        <value condition="Skin.String(p3i.ppi.font.label)">$LOCALIZE[31929]</value>
+        <value>$LOCALIZE[31930]</value>
+    </variable>
+
+    <variable name="P3I_Settings_PPI_Font_Value">
+        <value condition="Skin.String(p3i.ppi.font.value)">$LOCALIZE[31930]</value>
+        <value>$LOCALIZE[31929]</value>
+    </variable>
+
+    <variable name="P3I_Settings_PPI_Background">
+        <value condition="Skin.String(p3i.ppi.background,solid)">$LOCALIZE[31928]</value>
+        <value condition="Skin.String(p3i.ppi.background,hide)">$LOCALIZE[31926]</value>
+        <value>$LOCALIZE[31927]</value>
+    </variable>
+
+    <variable name="P3I_Settings_Codecs_OSD_Align">
+        <value condition="Skin.String(p3i.codecs.osd.align,left)">$LOCALIZE[31920]</value>
+        <value condition="Skin.String(p3i.codecs.osd.align,center)">$LOCALIZE[31921]</value>
+        <value>$LOCALIZE[31922]</value>
+    </variable>
+
+    <variable name="P3I_Settings_Codecs_OSD_Align_Vertical">
+        <value condition="Skin.String(p3i.codecs.osd.alignV)">$LOCALIZE[31923]</value>
+        <value>$LOCALIZE[31925]</value>
+    </variable>
+
+    <variable name="P3I_Settings_Codecs_OSD_Background">
+        <value condition="Skin.String(p3i.codecs.osd.background,solid)">$LOCALIZE[31928]</value>
+        <value condition="Skin.String(p3i.codecs.osd.background,hide)">$LOCALIZE[31926]</value>
+        <value>$LOCALIZE[31927]</value>
+    </variable>
+
+    <variable name="P3I_Settings_Codecs_PPI_Align">
+        <value condition="Skin.String(p3i.codecs.ppi.align,left)">$LOCALIZE[31920]</value>
+        <value condition="Skin.String(p3i.codecs.ppi.align,center)">$LOCALIZE[31921]</value>
+        <value>$LOCALIZE[31922]</value>
+    </variable>
+
+    <variable name="P3I_Settings_Codecs_PPI_Align_Vertical">
+        <value condition="Skin.String(p3i.codecs.ppi.alignV)">$LOCALIZE[31923]</value>
+        <value>$LOCALIZE[31925]</value>
+    </variable>
+
+    <variable name="P3I_Settings_Codecs_PPI_Background">
+        <value condition="Skin.String(p3i.codecs.ppi.background,solid)">$LOCALIZE[31928]</value>
+        <value condition="Skin.String(p3i.codecs.ppi.background,hide)">$LOCALIZE[31926]</value>
+        <value>$LOCALIZE[31927]</value>
+    </variable>
+
+    <variable name="P3I_Settings_Codecs_Video_Timeout">
+        <value condition="!Skin.String(p3i.codecs.video.timeout)">5</value>
+        <value>$INFO[Skin.String(p3i.codecs.video.timeout)]</value>
+    </variable>
+
+    <variable name="P3I_Settings_Codecs_Video_Align">
+        <value condition="Skin.String(p3i.codecs.video.align,left)">$LOCALIZE[31920]</value>
+        <value condition="Skin.String(p3i.codecs.video.align,center)">$LOCALIZE[31921]</value>
+        <value>$LOCALIZE[31922]</value>
+    </variable>
+
+    <variable name="P3I_Settings_Codecs_Video_Align_Vertical">
+        <value condition="Skin.String(p3i.codecs.video.alignV)">$LOCALIZE[31923]</value>
+        <value>$LOCALIZE[31925]</value>
+    </variable>
+
+    <variable name="P3I_Settings_Codecs_Video_Background">
+        <value condition="Skin.String(p3i.codecs.video.background,solid)">$LOCALIZE[31928]</value>
+        <value condition="Skin.String(p3i.codecs.video.background,hide)">$LOCALIZE[31926]</value>
+        <value>$LOCALIZE[31927]</value>
+    </variable>
+
+    <variable name="P3I_Settings_Info_Line">
+        <value condition="Skin.HasSetting(p3i.info.pillboxes)">$LOCALIZE[31916]</value>
+        <value>$LOCALIZE[31917]</value>
+    </variable>
+
+    <include name="P3I_Settings_Entry">
+        <item>
+            <label>p3i</label>
+            <label2>skin.arctic.fuse.3</label2>
+            <icon>special://skin/extras/icons/configure.png</icon>
+            <onclick>SetProperty(CustomDialogSettingsItems,P3I_Settings_Dialog,Home)</onclick>
+            <onclick>SetProperty(CustomDialogSettingsTitle,p3i,Home)</onclick>
+            <onclick>ActivateWindow(1118)</onclick>
+        </item>
+    </include>
+
+    <include name="P3I_Settings_Dialog">
+        <include content="Settings_Label">
+            <param name="id">8001</param>
+            <param name="dialog">true</param>
+            <label>$LOCALIZE[31900]</label>
+        </include>
+        <include content="Settings_Button">
+            <param name="dialog">true</param>
+            <param name="id">8002</param>
+            <param name="control">radiobutton</param>
+            <label>$LOCALIZE[31901]</label>
+            <onclick>Skin.ToggleSetting(p3i.ppi.disabled)</onclick>
+            <selected>!Skin.HasSetting(p3i.ppi.disabled)</selected>
+        </include>
+        <include content="Settings_Button">
+            <param name="dialog">true</param>
+            <param name="id">8003</param>
+            <param name="control">button</param>
+            <label> - $LOCALIZE[31902]</label>
+            <label2>$VAR[P3I_Settings_PPI_Align]</label2>
+            <visible>!Skin.HasSetting(p3i.ppi.disabled)</visible>
+            <onclick condition="Skin.String(p3i.ppi.align,left)">Skin.SetString(p3i.ppi.align,center)</onclick>
+            <onclick condition="Skin.String(p3i.ppi.align,center)">Skin.Reset(p3i.ppi.align)</onclick>
+            <onclick condition="!Skin.String(p3i.ppi.align)">Skin.SetString(p3i.ppi.align,left)</onclick>
+        </include>
+        <include content="Settings_Button">
+            <param name="dialog">true</param>
+            <param name="id">8004</param>
+            <param name="control">button</param>
+            <label> - $LOCALIZE[31903]</label>
+            <label2>$VAR[P3I_Settings_PPI_Align_Vertical]</label2>
+            <visible>!Skin.HasSetting(p3i.ppi.disabled)</visible>
+            <onclick condition="Skin.String(p3i.ppi.alignV,center)">Skin.SetString(p3i.ppi.alignV,top)</onclick>
+            <onclick condition="Skin.String(p3i.ppi.alignV,top)">Skin.Reset(p3i.ppi.alignV)</onclick>
+            <onclick condition="!Skin.String(p3i.ppi.alignV)">Skin.SetString(p3i.ppi.alignV,center)</onclick>
+        </include>
+        <include content="Settings_Button">
+            <param name="dialog">true</param>
+            <param name="id">8005</param>
+            <param name="control">button</param>
+            <label> - $LOCALIZE[31904]</label>
+            <label2>$VAR[P3I_Settings_PPI_Font_Label]</label2>
+            <visible>!Skin.HasSetting(p3i.ppi.disabled)</visible>
+            <onclick condition="Skin.String(p3i.ppi.font.label)">Skin.Reset(p3i.ppi.font.label)</onclick>
+            <onclick condition="!Skin.String(p3i.ppi.font.label)">Skin.SetString(p3i.ppi.font.label,bold)</onclick>
+        </include>
+        <include content="Settings_Button">
+            <param name="dialog">true</param>
+            <param name="id">8006</param>
+            <param name="control">button</param>
+            <label> - $LOCALIZE[31905]</label>
+            <label2>$VAR[P3I_Settings_PPI_Font_Value]</label2>
+            <visible>!Skin.HasSetting(p3i.ppi.disabled)</visible>
+            <onclick condition="Skin.String(p3i.ppi.font.value)">Skin.Reset(p3i.ppi.font.value)</onclick>
+            <onclick condition="!Skin.String(p3i.ppi.font.value)">Skin.SetString(p3i.ppi.font.value,regular)</onclick>
+        </include>
+        <include content="Settings_Button">
+            <param name="dialog">true</param>
+            <param name="id">8007</param>
+            <param name="control">radiobutton</param>
+            <label> - $LOCALIZE[31906]</label>
+            <visible>!Skin.HasSetting(p3i.ppi.disabled)</visible>
+            <onclick>Skin.ToggleSetting(p3i.ppi.compact)</onclick>
+            <selected>Skin.HasSetting(p3i.ppi.compact)</selected>
+        </include>
+        <include content="Settings_Button">
+            <param name="dialog">true</param>
+            <param name="id">8008</param>
+            <param name="control">button</param>
+            <label> - $LOCALIZE[31907]</label>
+            <label2>$VAR[P3I_Settings_PPI_Background]</label2>
+            <visible>!Skin.HasSetting(p3i.ppi.disabled)</visible>
+            <onclick condition="Skin.String(p3i.ppi.background,solid)">Skin.SetString(p3i.ppi.background,hide)</onclick>
+            <onclick condition="Skin.String(p3i.ppi.background,hide)">Skin.Reset(p3i.ppi.background)</onclick>
+            <onclick condition="!Skin.String(p3i.ppi.background)">Skin.SetString(p3i.ppi.background,solid)</onclick>
+        </include>
+        <include content="Settings_Button">
+            <param name="dialog">true</param>
+            <param name="id">8009</param>
+            <param name="control">radiobutton</param>
+            <label>$LOCALIZE[31908]</label>
+            <onclick>Skin.ToggleSetting(p3i.osd.hideBackground)</onclick>
+            <selected>!Skin.HasSetting(p3i.osd.hideBackground)</selected>
+        </include>
+        <include content="Settings_Label">
+            <param name="id">8010</param>
+            <param name="dialog">true</param>
+            <label>$LOCALIZE[31909]</label>
+        </include>
+
+        <include content="Settings_Button">
+            <param name="dialog">true</param>
+            <param name="id">8011</param>
+            <param name="control">radiobutton</param>
+            <label>$LOCALIZE[31910]</label>
+            <onclick>Skin.ToggleSetting(p3i.codecs.video.disabled)</onclick>
+            <selected>!Skin.HasSetting(p3i.codecs.video.disabled)</selected>
+        </include>
+        <include content="Settings_Button">
+            <param name="dialog">true</param>
+            <param name="id">8012</param>
+            <param name="control">button</param>
+            <label> - $LOCALIZE[31918]</label>
+            <label2>$VAR[P3I_Settings_Codecs_Video_Timeout] $LOCALIZE[31919]</label2>
+            <visible>!Skin.HasSetting(p3i.codecs.video.disabled)</visible>
+            <onclick>Skin.SetNumeric(p3i.codecs.video.timeout)</onclick>
+        </include>
+        <include content="Settings_Button">
+            <param name="dialog">true</param>
+            <param name="id">8013</param>
+            <param name="control">button</param>
+            <label> - $LOCALIZE[31902]</label>
+            <label2>$VAR[P3I_Settings_Codecs_Video_Align]</label2>
+            <visible>!Skin.HasSetting(p3i.codecs.video.disabled)</visible>
+            <onclick condition="Skin.String(p3i.codecs.video.align,left)">Skin.SetString(p3i.codecs.video.align,center)</onclick>
+            <onclick condition="Skin.String(p3i.codecs.video.align,center)">Skin.Reset(p3i.codecs.video.align)</onclick>
+            <onclick condition="!Skin.String(p3i.codecs.video.align)">Skin.SetString(p3i.codecs.video.align,left)</onclick>
+        </include>
+        <include content="Settings_Button">
+            <param name="dialog">true</param>
+            <param name="id">8014</param>
+            <param name="control">button</param>
+            <label> - $LOCALIZE[31903]</label>
+            <label2>$VAR[P3I_Settings_Codecs_Video_Align_Vertical]</label2>
+            <visible>!Skin.HasSetting(p3i.codecs.video.disabled)</visible>
+            <onclick condition="Skin.String(p3i.codecs.video.alignV)">Skin.Reset(p3i.codecs.video.alignV)</onclick>
+            <onclick condition="!Skin.String(p3i.codecs.video.alignV)">Skin.SetString(p3i.codecs.video.alignV,top)</onclick>
+        </include>
+        <include content="Settings_Button">
+            <param name="dialog">true</param>
+            <param name="id">8015</param>
+            <param name="control">button</param>
+            <label> - $LOCALIZE[31907]</label>
+            <label2>$VAR[P3I_Settings_Codecs_Video_Background]</label2>
+            <visible>!Skin.HasSetting(p3i.codecs.video.disabled)</visible>
+            <onclick condition="Skin.String(p3i.codecs.video.background,solid)">Skin.SetString(p3i.codecs.video.background,hide)</onclick>
+            <onclick condition="Skin.String(p3i.codecs.video.background,hide)">Skin.Reset(p3i.codecs.video.background)</onclick>
+            <onclick condition="!Skin.String(p3i.codecs.video.background)">Skin.SetString(p3i.codecs.video.background,solid)</onclick>
+        </include>
+
+        <include content="Settings_Button">
+            <param name="dialog">true</param>
+            <param name="id">8016</param>
+            <param name="control">radiobutton</param>
+            <label>$LOCALIZE[31911]</label>
+            <onclick>Skin.ToggleSetting(p3i.codecs.osd)</onclick>
+            <selected>Skin.HasSetting(p3i.codecs.osd)</selected>
+        </include>
+        <include content="Settings_Button">
+            <param name="dialog">true</param>
+            <param name="id">8017</param>
+            <param name="control">button</param>
+            <label> - $LOCALIZE[31902]</label>
+            <label2>$VAR[P3I_Settings_Codecs_OSD_Align]</label2>
+            <visible>Skin.HasSetting(p3i.codecs.osd)</visible>
+            <onclick condition="Skin.String(p3i.codecs.osd.align,left)">Skin.SetString(p3i.codecs.osd.align,center)</onclick>
+            <onclick condition="Skin.String(p3i.codecs.osd.align,center)">Skin.Reset(p3i.codecs.osd.align)</onclick>
+            <onclick condition="!Skin.String(p3i.codecs.osd.align)">Skin.SetString(p3i.codecs.osd.align,left)</onclick>
+        </include>
+        <include content="Settings_Button">
+            <param name="dialog">true</param>
+            <param name="id">8018</param>
+            <param name="control">button</param>
+            <label> - $LOCALIZE[31903]</label>
+            <label2>$VAR[P3I_Settings_Codecs_OSD_Align_Vertical]</label2>
+            <visible>Skin.HasSetting(p3i.codecs.osd)</visible>
+            <onclick condition="Skin.String(p3i.codecs.osd.alignV)">Skin.Reset(p3i.codecs.osd.alignV)</onclick>
+            <onclick condition="!Skin.String(p3i.codecs.osd.alignV)">Skin.SetString(p3i.codecs.osd.alignV,top)</onclick>
+        </include>
+        <include content="Settings_Button">
+            <param name="dialog">true</param>
+            <param name="id">8019</param>
+            <param name="control">button</param>
+            <label> - $LOCALIZE[31907]</label>
+            <label2>$VAR[P3I_Settings_Codecs_OSD_Background]</label2>
+            <visible>Skin.HasSetting(p3i.codecs.osd)</visible>
+            <onclick condition="Skin.String(p3i.codecs.osd.background,solid)">Skin.SetString(p3i.codecs.osd.background,hide)</onclick>
+            <onclick condition="Skin.String(p3i.codecs.osd.background,hide)">Skin.Reset(p3i.codecs.osd.background)</onclick>
+            <onclick condition="!Skin.String(p3i.codecs.osd.background)">Skin.SetString(p3i.codecs.osd.background,solid)</onclick>
+        </include>
+
+        <include content="Settings_Button">
+            <param name="dialog">true</param>
+            <param name="id">8020</param>
+            <param name="control">radiobutton</param>
+            <label>$LOCALIZE[31912]</label>
+            <onclick>Skin.ToggleSetting(p3i.codecs.ppi)</onclick>
+            <selected>Skin.HasSetting(p3i.codecs.ppi)</selected>
+        </include>
+        <include content="Settings_Button">
+            <param name="dialog">true</param>
+            <param name="id">8021</param>
+            <param name="control">button</param>
+            <label> - $LOCALIZE[31902]</label>
+            <label2>$VAR[P3I_Settings_Codecs_PPI_Align]</label2>
+            <visible>Skin.HasSetting(p3i.codecs.ppi)</visible>
+            <onclick condition="Skin.String(p3i.codecs.ppi.align,left)">Skin.SetString(p3i.codecs.ppi.align,center)</onclick>
+            <onclick condition="Skin.String(p3i.codecs.ppi.align,center)">Skin.Reset(p3i.codecs.ppi.align)</onclick>
+            <onclick condition="!Skin.String(p3i.codecs.ppi.align)">Skin.SetString(p3i.codecs.ppi.align,left)</onclick>
+        </include>
+        <include content="Settings_Button">
+            <param name="dialog">true</param>
+            <param name="id">8022</param>
+            <param name="control">button</param>
+            <label> - $LOCALIZE[31903]</label>
+            <label2>$VAR[P3I_Settings_Codecs_PPI_Align_Vertical]</label2>
+            <visible>Skin.HasSetting(p3i.codecs.ppi)</visible>
+            <onclick condition="Skin.String(p3i.codecs.ppi.alignV)">Skin.Reset(p3i.codecs.ppi.alignV)</onclick>
+            <onclick condition="!Skin.String(p3i.codecs.ppi.alignV)">Skin.SetString(p3i.codecs.ppi.alignV,top)</onclick>
+        </include>
+        <include content="Settings_Button">
+            <param name="dialog">true</param>
+            <param name="id">8023</param>
+            <param name="control">button</param>
+            <label> - $LOCALIZE[31907]</label>
+            <label2>$VAR[P3I_Settings_Codecs_PPI_Background]</label2>
+            <visible>Skin.HasSetting(p3i.codecs.ppi)</visible>
+            <onclick condition="Skin.String(p3i.codecs.ppi.background,solid)">Skin.SetString(p3i.codecs.ppi.background,hide)</onclick>
+            <onclick condition="Skin.String(p3i.codecs.ppi.background,hide)">Skin.Reset(p3i.codecs.ppi.background)</onclick>
+            <onclick condition="!Skin.String(p3i.codecs.ppi.background)">Skin.SetString(p3i.codecs.ppi.background,solid)</onclick>
+        </include>
+
+        <include content="Settings_Label">
+            <param name="id">8024</param>
+            <param name="dialog">true</param>
+            <label>$LOCALIZE[31913]</label>
+        </include>
+        <include content="Settings_Button">
+            <param name="dialog">true</param>
+            <param name="id">8025</param>
+            <param name="control">button</param>
+            <label>$LOCALIZE[31914]</label>
+            <label2>$VAR[P3I_Settings_Info_Line]</label2>
+            <onclick>Skin.ToggleSetting(p3i.info.pillboxes)</onclick>
+        </include>
+        <include content="Settings_Button">
+            <param name="dialog">true</param>
+            <param name="id">8026</param>
+            <param name="control">radiobutton</param>
+            <label>$LOCALIZE[31915]</label>
+            <onclick>Skin.ToggleSetting(p3i.info.audiocodecs)</onclick>
+            <selected>Skin.HasSetting(p3i.info.audiocodecs)</selected>
+        </include>
+    </include>
+
+</includes>
