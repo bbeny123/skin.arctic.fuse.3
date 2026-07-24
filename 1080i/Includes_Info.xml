@@ -308,7 +308,7 @@
         <param name="haspath">false</param>
         <param name="dbtype_count">1</param>
         <definition>
-            <include content="Info_Line_Divider">
+            <include condition="!Skin.HasSetting(p3i.info.pillboxes)" content="Info_Line_Divider">
                 <param name="visible">$PARAM[visible]</param>
             </include>
             <control type="label">
@@ -317,8 +317,14 @@
                 <textcolor>$PARAM[colordiffuse]_70</textcolor>
                 <width>auto</width>
                 <font>font_main</font>
-                <visible>$PARAM[visible]</visible>
+                <visible>$PARAM[visible] + !Skin.HasSetting(p3i.info.pillboxes)</visible>
             </control>
+            <include condition="Skin.HasSetting(p3i.info.pillboxes)" content="P3I_Info_Line_Pillbox">
+                <param name="visible">$PARAM[visible]</param>
+                <param name="label">$PARAM[label]</param>
+                <param name="label_fallback">$PARAM[label_fallback]</param>
+                <param name="haspath">$PARAM[haspath]</param>
+            </include>
         </definition>
     </include>
 
@@ -518,6 +524,11 @@
                         <param name="container">$PARAM[container]</param>
                         <param name="listitem">$PARAM[listitem]</param>
                     </include>
+                    <include content="P3I_Info_Line_Audio_Codec" condition="Skin.HasSetting(p3i.info.audiocodecs)">
+                        <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                        <param name="container">$PARAM[container]</param>
+                        <param name="listitem">$PARAM[listitem]</param>
+                    </include>
                     <include content="Info_Line_AudioChannels_Resolution" condition="Skin.HasSetting(InfoTags.EnableAudioChannels)">
                         <param name="colordiffuse">$PARAM[colordiffuse]</param>
                         <param name="container">$PARAM[container]</param>
@@ -699,10 +710,10 @@
     <include name="Info_Line_StarRating">
         <param name="visible">true</param>
         <definition>
-            <include content="Info_Line_Divider">
+            <include condition="!Skin.HasSetting(p3i.info.pillboxes)" content="Info_Line_Divider">
                 <param name="visible">$PARAM[visible]</param>
             </include>
-            <include content="Info_StarRating">
+            <include condition="!Skin.HasSetting(p3i.info.pillboxes)" content="Info_StarRating">
                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
                 <param name="rating">$PARAM[rating]</param>
                 <left>-10</left>
@@ -711,6 +722,11 @@
                 <centertop>50%</centertop>
                 <itemgap>-16</itemgap>
                 <visible>$PARAM[visible]</visible>
+            </include>
+            <include condition="Skin.HasSetting(p3i.info.pillboxes)" content="P3I_Info_Line_Star_Rating_Pillbox">
+                <param name="visible">$PARAM[visible]</param>
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
+                <param name="rating">$PARAM[rating]</param>
             </include>
         </definition>
     </include>
@@ -778,6 +794,11 @@
                 <param name="label">HLG</param>
                 <param name="visible">$PARAM[visible] + String.IsEqual($PARAM[container]$PARAM[listitem].HdrType,hlg)</param>
                 <param name="width">auto</param>
+            </include>
+            <include content="P3I_Info_Line_Pill_SDR">
+                <param name="item">$PARAM[container]$PARAM[listitem]</param>
+                <param name="visible">$PARAM[visible]</param>
+                <param name="colordiffuse">$PARAM[colordiffuse]</param>
             </include>
         </definition>
     </include>

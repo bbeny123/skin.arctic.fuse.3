@@ -2433,3 +2433,278 @@ msgstr ""
 msgctxt "#31625"
 msgid "High"
 msgstr ""
+
+#: /1080i/Includes_p3i_Settings.xml
+msgctxt "#31900"
+msgid "Video OSD"
+msgstr ""
+
+msgctxt "#31901"
+msgid "Enhanced PPI"
+msgstr ""
+
+msgctxt "#31902"
+msgid "Align"
+msgstr ""
+
+msgctxt "#31903"
+msgid "Vertical Align"
+msgstr ""
+
+msgctxt "#31904"
+msgid "Font: Label"
+msgstr ""
+
+msgctxt "#31905"
+msgid "Font: Value"
+msgstr ""
+
+msgctxt "#31906"
+msgid "Narrow Margins"
+msgstr ""
+
+msgctxt "#31907"
+msgid "Background"
+msgstr ""
+
+msgctxt "#31908"
+msgid "OSD Background"
+msgstr ""
+
+msgctxt "#31909"
+msgid "Codec Badges"
+msgstr ""
+
+msgctxt "#31910"
+msgid "Codec Badge (Launch)"
+msgstr ""
+
+msgctxt "#31911"
+msgid "Codec Badge (OSD)"
+msgstr ""
+
+msgctxt "#31912"
+msgid "Codec Badge (PPI)"
+msgstr ""
+
+msgctxt "#31913"
+msgid "Info Line"
+msgstr ""
+
+msgctxt "#31914"
+msgid "Info Line Style"
+msgstr ""
+
+msgctxt "#31915"
+msgid "Audio Codec"
+msgstr ""
+
+msgctxt "#31916"
+msgid "Badges"
+msgstr ""
+
+msgctxt "#31917"
+msgid "Text"
+msgstr ""
+
+msgctxt "#31918"
+msgid "Duration"
+msgstr ""
+
+msgctxt "#31919"
+msgid "sec."
+msgstr ""
+
+msgctxt "#31920"
+msgid "Left"
+msgstr ""
+
+msgctxt "#31921"
+msgid "Center"
+msgstr ""
+
+msgctxt "#31922"
+msgid "Right"
+msgstr ""
+
+msgctxt "#31923"
+msgid "Top"
+msgstr ""
+
+msgctxt "#31924"
+msgid "Bottom"
+msgstr ""
+
+msgctxt "#31925"
+msgid "L5 Dynamic"
+msgstr ""
+
+msgctxt "#31926"
+msgid "Hide"
+msgstr ""
+
+msgctxt "#31927"
+msgid "Transparent"
+msgstr ""
+
+msgctxt "#31928"
+msgid "Solid"
+msgstr ""
+
+msgctxt "#31929"
+msgid "Bold"
+msgstr ""
+
+msgctxt "#31930"
+msgid "Regular"
+msgstr ""
+
+#: /1080i/Includes_p3i_PPI.xml - Headers
+msgctxt "#31945"
+msgid "Video"
+msgstr ""
+
+msgctxt "#31946"
+msgid "Processing"
+msgstr ""
+
+msgctxt "#31947"
+msgid "Audio"
+msgstr ""
+
+msgctxt "#31948"
+msgid "System"
+msgstr ""
+
+#: /1080i/Includes_p3i_PPI.xml - Common
+msgctxt "#31950"
+msgid "N/A"
+msgstr ""
+
+msgctxt "#31951"
+msgid "Unknown"
+msgstr ""
+
+msgctxt "#31952"
+msgid "Disabled"
+msgstr ""
+
+msgctxt "#31953"
+msgid "External"
+msgstr ""
+
+msgctxt "#31954"
+msgid "Source"
+msgstr ""
+
+msgctxt "#31955"
+msgid "Output"
+msgstr ""
+
+msgctxt "#31956"
+msgid "Bitrate"
+msgstr ""
+
+#: /1080i/Includes_p3i_PPI.xml - Video
+msgctxt "#31960"
+msgid "Display"
+msgstr ""
+
+msgctxt "#31961"
+msgid "Stream"
+msgstr ""
+
+msgctxt "#31962"
+msgid "Profile"
+msgstr ""
+
+msgctxt "#31963"
+msgid "Primaries"
+msgstr ""
+
+msgctxt "#31964"
+msgid "Progress"
+msgstr ""
+
+msgctxt "#31965"
+msgid "Decoder"
+msgstr ""
+
+msgctxt "#31966"
+msgid "Dec | Deint"
+msgstr ""
+
+#: /1080i/Includes_p3i_PPI.xml - Processing
+msgctxt "#31970"
+msgid "Detected"
+msgstr ""
+
+msgctxt "#31971"
+msgid "Detection"
+msgstr ""
+
+msgctxt "#31972"
+msgid "Analyzing..."
+msgstr ""
+
+msgctxt "#31973"
+msgid "Failed"
+msgstr ""
+
+msgctxt "#31974"
+msgid "Skipped"
+msgstr ""
+
+msgctxt "#31975"
+msgid "Non-16:9"
+msgstr ""
+
+#: /1080i/Includes_p3i_PPI.xml - Audio
+msgctxt "#31980"
+msgid "Codec"
+msgstr ""
+
+msgctxt "#31981"
+msgid "Resolution"
+msgstr ""
+
+msgctxt "#31982"
+msgid "Passthrough"
+msgstr ""
+
+msgctxt "#31983"
+msgid "Decoding"
+msgstr ""
+
+msgctxt "#31984"
+msgid "Track"
+msgstr ""
+
+msgctxt "#31985"
+msgid "Subtitles"
+msgstr ""
+
+#: /1080i/Includes_p3i_PPI.xml - System
+msgctxt "#31990"
+msgid "In | Drop | Out"
+msgstr ""
+
+msgctxt "#31991"
+msgid "CPU"
+msgstr ""
+
+msgctxt "#31992"
+msgid "RAM"
+msgstr ""
+
+msgctxt "#31993"
+msgid "Player Cache"
+msgstr ""
+
+msgctxt "#31994"
+msgid "Video Q | Data"
+msgstr ""
+
+msgctxt "#31995"
+msgid "Audio Q | Data"
+msgstr ""
