@@ -870,10 +870,20 @@ msgctxt "#31179"
 msgid "Keyword"
 msgstr "Słowo kluczowe"
 
+#: /1080i/Dialog_DialogPlot.xml
+msgctxt "#31180"
+msgid "Garbage"
+msgstr "Gniot"
+
 #: /1080i/Includes_DialogInfo.xml
 msgctxt "#31181"
 msgid "Scheduled"
 msgstr "Zaplanowane"
+
+#: /1080i/Dialog_DialogPlot.xml
+msgctxt "#31182"
+msgid "Bad"
+msgstr "Słaby"
 
 #: /1080i/Includes_Info.xml
 msgctxt "#31183"
@@ -904,6 +914,26 @@ msgstr "Limit"
 msgctxt "#31189"
 msgid "Autoclose OSD after X seconds"
 msgstr "Czas wyświetlania OSD"
+
+#: /1080i/Dialog_DialogPlot.xml
+msgctxt "#31190"
+msgid "Average"
+msgstr "Przeciętny"
+
+#: /1080i/Dialog_DialogPlot.xml
+msgctxt "#31191"
+msgid "Good"
+msgstr "Dobry"
+
+#: /1080i/Dialog_DialogPlot.xml
+msgctxt "#31192"
+msgid "Great"
+msgstr "Świetny"
+
+#: /1080i/Dialog_DialogPlot.xml
+msgctxt "#31193"
+msgid "Amazing"
+msgstr "Wybitny"
 
 #: /1080i/Includes_Info.xml
 msgctxt "#31194"
@@ -938,6 +968,11 @@ msgstr "Data i godzina"
 msgctxt "#31200"
 msgid "Added on"
 msgstr "Dodano"
+
+#: /1080i/Dialog_DialogPlot.xml
+msgctxt "#31201"
+msgid "Excellent"
+msgstr "Arcydzieło"
 
 msgctxt "#31202"
 msgid "Ratings"
